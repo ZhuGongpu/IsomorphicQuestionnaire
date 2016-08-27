@@ -22,21 +22,6 @@ export default({history, store}) => {
                 renderRoute(component)
             }).catch(errorLoading);
         }}/>
-        <Route path="/about" getComponent={(location, callback) => {
-            require.ensure([], function(require) {
-                callback(null, require('containers/AboutPage').default);
-            }, "AboutPage");
-        }}/>
-        <Route path="/counter" getComponent={(location, callback) => {            
-            const importModules = Promise.all([System.import ('containers/CounterPage'), System.import ('containers/CounterPage/reducer')]);
-            const renderRoute = loadModule(callback);
-            importModules.then(([component, reducers]) => {
-                injectReducer("counter", reducers.default);
-                renderRoute(component)
-            })
-            .catch(errorLoading);
-
-        }}/>
         <Route path="*" getComponent={(location, callback) => {
             require.ensure([], function(require) {
                 callback(null, require('containers/NotFoundPage').default);
