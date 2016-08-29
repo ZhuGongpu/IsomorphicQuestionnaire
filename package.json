@@ -15,8 +15,10 @@
   "author": "ZhuGongpu",
   "license": "UNLICENSED",
   "devDependencies": {
+    "antd": "^1.10.0",
     "babel-core": "^6.13.2",
     "babel-loader": "^6.2.4",
+    "babel-plugin-antd": "^0.5.1",
     "babel-plugin-react-transform": "^2.0.2",
     "babel-plugin-transform-react-constant-elements": "^6.8.0",
     "babel-plugin-transform-react-inline-elements": "^6.8.0",
