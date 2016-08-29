@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import {Router, Route, IndexRoute} from 'react-router'
-import {getHooks} from "utilities/hooks";
+import {getHooks} from "utils/hooks";
 
 const errorLoading = (err) => {
     console.error('Dynamic page loading failed', err); // eslint-disable-line no-console

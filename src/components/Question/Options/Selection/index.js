@@ -11,12 +11,14 @@ class Selection extends React.Component {
 
     onCheckChange(checkedValues) {
         //TODO
-        console.log("Selection onCheckChange: %O", checkedValues)
+        console.log("Questionnaire onCheckChange: %O", checkedValues);
+        this.props.onSelectionChange(checkedValues);
     }
 
     onSelectChange(e) {
         //TODO
-        console.log("Selection onSelectChange: %o", e.target.value)
+        console.log("Questionnaire onSelectChange: %o", e.target.value);
+        this.props.onSelectionChange(e.target.value);
     }
 
     render() {
@@ -24,6 +26,7 @@ class Selection extends React.Component {
 
         return allowMultiSelection ?
             <CheckboxGroup options={options.map(option => ({label: option.text, value: option.id}))}
+                           value={currentSelection}
                            onChange={this.onCheckChange.bind(this)}/> :
             <RadioGroup onChange={this.onSelectChange.bind(this)} value={currentSelection}>
                 {options.map(option =>
@@ -40,11 +43,12 @@ class Selection extends React.Component {
 Selection.propTypes = {
     currentSelection: PropTypes.any,
     allowMultiSelection: PropTypes.bool,
-    options: PropTypes.array.shape({
+    options: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.any.isRequired,
         text: PropTypes.string.isRequired
-    }).isRequired,
-    selectionItemClassName: PropTypes.string
+    })).isRequired,
+    selectionItemClassName: PropTypes.string,
+    onSelectionChange: PropTypes.func.isRequired
 };
 
 export default Selection;
