@@ -9,7 +9,7 @@ import Questionnaire from "../Questionnaire";
 const questions = [{
     type: QuestionType.SingleChoice.value,
     id: "1",
-    title: "问题标题2",
+    title: "问题标题1(单选题)",
     options: [{
         id: "1",
         text: "选项1"
@@ -30,7 +30,7 @@ const questions = [{
 }, {
     type: QuestionType.MultipleChoice.value,
     id: "2",
-    title: "问题标题2",
+    title: "问题标题2(多选题)",
     options: [{
         id: "1",
         text: "选项1"
@@ -48,25 +48,10 @@ const questions = [{
         text: "选项5"
     }],
 }, {
-    type: QuestionType.SingleChoice.value,
+    type: QuestionType.Input.value,
     id: "3",
-    title: "问题标题3",
-    options: [{
-        id: "1",
-        text: "选项1"
-    }, {
-        id: "2",
-        text: "选项2"
-    }, {
-        id: "3",
-        text: "选项3"
-    }, {
-        id: "4",
-        text: "选项4"
-    }, {
-        id: "5",
-        text: "选项5"
-    }],
+    title: "问题标题3(问答题)",
+    placeholder: "我是placeholder"
 }];
 
 export default() => (<div>

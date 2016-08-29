@@ -5,7 +5,7 @@
 
 import React, {PropTypes} from "react";
 import {QuestionType} from "../../enums/QuestionType";
-import {Selection} from "./Options";
+import {Selection, Input} from "./Options";
 
 class Question extends React.Component {
 
@@ -22,7 +22,9 @@ class Question extends React.Component {
                                   allowMultiSelection={question.type == QuestionType.MultipleChoice.value}
                                   onSelectionChange={this.onAnswerChange.bind(this)}/>;
             case QuestionType.Input.value:
-//TODO
+                return <Input onChange={this.onAnswerChange.bind(this)}
+                              placeholder={question.placeholder}
+                              currentValue={this.props.answer}/>;
             case QuestionType.Dropdown.value:
 //TODO
             case QuestionType.Matrix.value:
