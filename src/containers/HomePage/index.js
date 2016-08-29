@@ -24,9 +24,9 @@ const questions = [{
         text: "选项4"
     }, {
         id: "5",
-        text: "选项5"
+        text: "显示问题3",
+        next: "3"
     }],
-    next: "2"
 }, {
     type: QuestionType.MultipleChoice.value,
     id: "2",
@@ -47,7 +47,26 @@ const questions = [{
         id: "5",
         text: "选项5"
     }],
-    next: "3"
+}, {
+    type: QuestionType.SingleChoice.value,
+    id: "3",
+    title: "问题标题3",
+    options: [{
+        id: "1",
+        text: "选项1"
+    }, {
+        id: "2",
+        text: "选项2"
+    }, {
+        id: "3",
+        text: "选项3"
+    }, {
+        id: "4",
+        text: "选项4"
+    }, {
+        id: "5",
+        text: "选项5"
+    }],
 }];
 
 export default() => (<div>
