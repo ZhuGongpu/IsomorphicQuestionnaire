@@ -9,6 +9,8 @@ import Question from "../../components/Question";
 import {answerChange} from "./actions";
 import {selectAnswers, DOMAIN} from "./selectors";
 import reducer from "./reducer";
+import "antd/dist/antd.less";
+import "./index.scss";
 
 class Questionnaire extends React.Component {
 
