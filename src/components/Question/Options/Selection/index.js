@@ -10,14 +10,10 @@ const CheckboxGroup = Checkbox.Group;
 class Selection extends React.Component {
 
     onCheckChange(checkedValues) {
-        //TODO
-        console.log("Questionnaire onCheckChange: %O", checkedValues);
         this.props.onSelectionChange(checkedValues);
     }
 
     onSelectChange(e) {
-        //TODO
-        console.log("Questionnaire onSelectChange: %o", e.target.value);
         this.props.onSelectionChange(e.target.value);
     }
 

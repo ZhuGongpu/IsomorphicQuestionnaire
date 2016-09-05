@@ -13,24 +13,26 @@ class Question extends React.Component {
         this.props.onAnswerChange(this.props.data.id, answer)
     }
 
-    buildOptions(question) {
+    buildOptions(question, answer) {
         switch (question.type) {
             case QuestionType.SingleChoice.value:
             case QuestionType.MultipleChoice.value:
                 return <Selection options={question.options}
-                                  currentSelection={this.props.answer}
+                                  currentSelection={answer}
                                   allowMultiSelection={question.type == QuestionType.MultipleChoice.value}
                                   onSelectionChange={this.onAnswerChange.bind(this)}/>;
             case QuestionType.Input.value:
                 return <Input onChange={this.onAnswerChange.bind(this)}
                               placeholder={question.placeholder}
-                              currentValue={this.props.answer}/>;
+                              currentValue={answer}/>;
             case QuestionType.Dropdown.value:
                 return <Dropdown placeholders={question.placeholders}
+                                 currentSelections={answer}
                                  onChange={this.onAnswerChange.bind(this)}
                                  options={question.options}/>;
             case QuestionType.Matrix.value:
                 return <Matrix labels={question.labels}
+                               values={answer}
                                onChange={this.onAnswerChange.bind(this)}/>;
             default:
                 return null;
@@ -38,12 +40,12 @@ class Question extends React.Component {
     }
 
     render() {
-        const {data} = this.props;
+        const {data, answer} = this.props;
 
         return (<div>
             <div className="question-prompt">{data.title}</div>
             <div className="question-options-container">
-                {this.buildOptions(data)}
+                {this.buildOptions(data, answer)}
             </div>
         </div>);
     }
