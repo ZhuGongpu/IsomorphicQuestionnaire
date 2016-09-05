@@ -1,7 +1,7 @@
 /**
  * Created by ZhuGongpu on 2016-8-29.
  */
-const ACTION_PREFIX = "app/Questionnaire";
+const ACTION_PREFIX = "app/Questionnaire/";
 
 //region Answer Change
 
