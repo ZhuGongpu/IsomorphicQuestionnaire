@@ -5,7 +5,7 @@
 
 import React, {PropTypes} from "react";
 import {QuestionType} from "../../enums/QuestionType";
-import {Selection, Input} from "./Options";
+import {Selection, Input, Dropdown} from "./Options";
 
 class Question extends React.Component {
 
@@ -26,7 +26,8 @@ class Question extends React.Component {
                               placeholder={question.placeholder}
                               currentValue={this.props.answer}/>;
             case QuestionType.Dropdown.value:
-//TODO
+//TODO:
+                return <Dropdown options={question.options}/>;
             case QuestionType.Matrix.value:
 //TODO
             default:

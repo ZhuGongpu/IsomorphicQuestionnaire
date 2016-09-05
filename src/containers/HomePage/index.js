@@ -52,7 +52,27 @@ const questions = [{
     id: "3",
     title: "问题标题3(问答题)",
     placeholder: "我是placeholder"
-}];
+}, {
+    type: QuestionType.Dropdown.value,
+    id: "4",
+    title: "问题标题4(下拉选择)",
+    placeholders: ["省份", "城市"],
+    options: [{
+        id: "1",
+        text: "北京",
+        children: [{
+            id: "10",
+            text: "海淀"
+        }]
+    }, {
+        id: "2",
+        text: "上海",
+        children: [{
+            id: "20",
+            text: "浦东"
+        }]
+    }]
+},];
 
 export default() => (<div>
     <div className={styles.introduction}>This is the HomePage</div>
