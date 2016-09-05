@@ -26,7 +26,6 @@ class Question extends React.Component {
                               placeholder={question.placeholder}
                               currentValue={this.props.answer}/>;
             case QuestionType.Dropdown.value:
-//TODO:
                 return <Dropdown placeholders={question.placeholders}
                                  onChange={this.onAnswerChange.bind(this)}
                                  options={question.options}/>;

@@ -18,6 +18,9 @@ class Dropdown extends React.Component {
     onChange(index, value) {
         const {currentSelections} = this.props;
         currentSelections[index] = value;
+        while (currentSelections.length > index + 1) {
+            currentSelections.pop()
+        }
 
         this.props.onChange(currentSelections);
     }
