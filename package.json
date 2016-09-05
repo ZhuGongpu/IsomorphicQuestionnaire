@@ -47,6 +47,8 @@
     "imports-loader": "^0.6.5",
     "isomorphic-fetch": "^2.2.1",
     "json-loader": "^0.5.4",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
     "node-sass": "^3.8.0",
     "normalizr": "^2.1.0",
     "null-loader": "^0.1.1",

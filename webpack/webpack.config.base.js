@@ -75,6 +75,8 @@ module.exports = (options) => ({
             include: /node_modules/,
             loaders: ExtractTextPlugin.extract({fallbackLoader: 'style-loader', loader: ['css-loader']}),
         }, {
+            test: /\.less$/, loader: "style!css!less"
+        }, {
             test: /\.jpe?g$|\.gif$|\.png$|\.svg$/i,
             loader: 'url-loader?limit=10000',
         }, {
