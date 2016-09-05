@@ -11,9 +11,9 @@ class Input extends React.Component {
     }
 
     render() {
-        const {currentValue, placeholder, className} = this.props;
+        const {currentValue, placeholder} = this.props;
 
-        return <InputBox className={className}
+        return <InputBox style={{maxWidth: 400}}
                          placeholder={placeholder}
                          value={currentValue}
                          onChange={this.onChange.bind(this)}/>
@@ -23,7 +23,6 @@ class Input extends React.Component {
 Input.propTypes = {
     currentValue: PropTypes.string,
     placeholder: PropTypes.string,
-    className: PropTypes.string,
     onChange: PropTypes.func.isRequired
 };
 

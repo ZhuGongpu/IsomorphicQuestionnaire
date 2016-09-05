@@ -4,6 +4,7 @@
  */
 import React, {PropTypes} from "react";
 import {Radio, Checkbox} from "antd";
+import styles from "./index.scss";
 const RadioGroup = Radio.Group;
 const CheckboxGroup = Checkbox.Group;
 
@@ -27,7 +28,7 @@ class Selection extends React.Component {
             <RadioGroup onChange={this.onSelectChange.bind(this)} value={currentSelection}>
                 {options.map(option =>
                     <Radio key={option.id}
-                           className={selectionItemClassName}
+                           className={`${styles["radio-item"]} ${selectionItemClassName}`}
                            value={option.id}>
                         {option.text}
                     </Radio>

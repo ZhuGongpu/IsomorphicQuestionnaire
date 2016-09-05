@@ -6,6 +6,7 @@
 import React, {PropTypes} from "react";
 import {QuestionType} from "../../enums/QuestionType";
 import {Selection, Input, Dropdown, Matrix} from "./Options";
+import styles from "./index.scss";
 
 class Question extends React.Component {
 
@@ -40,11 +41,11 @@ class Question extends React.Component {
     }
 
     render() {
-        const {data, answer} = this.props;
+        const {data, answer, className} = this.props;
 
-        return (<div>
-            <div className="question-prompt">{data.title}</div>
-            <div className="question-options-container">
+        return (<div className={`${styles["question"]} ${className}`}>
+            <div className={`${styles["question-prompt"]} question-prompt`}>{data.title}</div>
+            <div className={`${styles["question-options-container"]} question-options-container`}>
                 {this.buildOptions(data, answer)}
             </div>
         </div>);
@@ -52,9 +53,14 @@ class Question extends React.Component {
 }
 
 Question.propTypes = {
+    className: PropTypes.string,
     data: PropTypes.object.isRequired,
     onAnswerChange: PropTypes.func.isRequired,
     answer: PropTypes.any
+};
+
+Question.defaultProps = {
+    className: ""
 };
 
 export default Question;
