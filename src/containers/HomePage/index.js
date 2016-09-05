@@ -62,7 +62,11 @@ const questions = [{
         text: "北京",
         children: [{
             id: "10",
-            text: "海淀"
+            text: "海淀",
+            children: [{
+                id: "100",
+                text: "北航"
+            }]
         }]
     }, {
         id: "2",
