@@ -76,7 +76,12 @@ const questions = [{
             text: "浦东"
         }]
     }]
-},];
+}, {
+    type: QuestionType.Matrix.value,
+    id: "5",
+    title: "问题标题5(评分题)",
+    labels: ["评分项1", "评分项2", "评分项3", "评分项4"]
+}];
 
 export default() => (<div>
     <div className={styles.introduction}>This is the HomePage</div>

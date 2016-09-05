@@ -5,7 +5,7 @@
 
 import React, {PropTypes} from "react";
 import {QuestionType} from "../../enums/QuestionType";
-import {Selection, Input, Dropdown} from "./Options";
+import {Selection, Input, Dropdown, Matrix} from "./Options";
 
 class Question extends React.Component {
 
@@ -30,7 +30,8 @@ class Question extends React.Component {
                                  onChange={this.onAnswerChange.bind(this)}
                                  options={question.options}/>;
             case QuestionType.Matrix.value:
-//TODO
+                return <Matrix labels={question.labels}
+                               onChange={this.onAnswerChange.bind(this)}/>;
             default:
                 return null;
         }
