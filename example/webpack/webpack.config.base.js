@@ -18,16 +18,13 @@ module.exports = (options) => ({
             'react-router-redux',
             'redux',
             'redux-thunk',
-            'history'
-        ],
-        Questionnaire: "./src/containers/Questionnaire",
-        QuestionType: "./src/enums/QuestionType.js",
-        Question: "./src/components/Question",
-        QuestionOptions: "./src/components/Question/Options"
+            'history',
+            'isomorphic-fetch'
+        ]
     }, options.entry),
     output: Object.assign({}, {
         path: path.resolve(process.cwd(), 'dist'),
-        filename: "[name].js",
+        filename: "[name].bundle.js",
         chunkFilename: "[name].chunk.js",
         publicPath: '/dist/',
         hash: true
@@ -77,8 +74,6 @@ module.exports = (options) => ({
             test: /\.css$/,
             include: /node_modules/,
             loaders: ExtractTextPlugin.extract({fallbackLoader: 'style-loader', loader: ['css-loader']}),
-        }, {
-            test: /\.less$/, loader: "style!css!less"
         }, {
             test: /\.jpe?g$|\.gif$|\.png$|\.svg$/i,
             loader: 'url-loader?limit=10000',

@@ -1,0 +1,14 @@
+@import "../../../../styles/global";
+
+.radio-item {
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 5px;
+
+  @media (min-width: $small-screen) {
+    width: initial;
+    margin-bottom: initial;
+    margin-top: initial;
+  }
+}
+
