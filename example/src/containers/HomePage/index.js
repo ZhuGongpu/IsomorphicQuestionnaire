@@ -3,8 +3,12 @@
  */
 import React from "react";
 import styles from "./index.scss";
-import {QuestionType} from "../../enums/QuestionType";
-import Questionnaire from "../Questionnaire";
+// import {QuestionType} from "../../enums/QuestionType";
+import Questionnaire from "isomorphic-questionnaire";
+import QuestionTypeCollection, {QuestionType} from "isomorphic-questionnaire/lib/QuestionType"
+
+console.log("QuestionType: %o  %o", QuestionTypeCollection, QuestionType);
+console.log("QUESTIONNAIRE: %o", Questionnaire);
 
 const questions = [{
     type: QuestionType.SingleChoice.value,
@@ -83,9 +87,13 @@ const questions = [{
     labels: ["评分项1", "评分项2", "评分项3", "评分项4"]
 }];
 
+function onAnswerChange(questionID, answer) {
+    console.log("onAnswerChange: %o %o", questionID, answer);
+}
+
 export default() => (<div>
     <div className={styles.introduction}>This is the HomePage</div>
     <div>
-        <Questionnaire questions={questions}/>
+        <Questionnaire questions={questions} onAnswerChange={onAnswerChange} answers={[]}/>
     </div>
 </div>)

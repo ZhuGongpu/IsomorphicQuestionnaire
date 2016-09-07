@@ -2,8 +2,10 @@
  * Created by ZhuGongpu on 16/9/6.
  */
 
-module.exports = require("./dist/Questionnaire");
-exports.default = require("./dist/Questionnaire");
-exports.QuestionType = require("./dist/QuestionType");
-exports.Question = require("./dist/Question");
-exports.Options = require("./dist/QuestionOptions");
+module.exports = require("./lib/Questionnaire.js");
+
+
+// exports.default = require("./lib/Questionnaire");
+// exports.QuestionType = require("./lib/QuestionType");
+// exports.Question = require("./lib/Question");
+// exports.Options = require("./lib/QuestionOptions");
