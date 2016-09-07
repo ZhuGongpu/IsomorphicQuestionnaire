@@ -4,8 +4,10 @@
 import React from "react";
 import styles from "./index.scss";
 // import {QuestionType} from "../../enums/QuestionType";
-import Questionnaire from "isomorphic-questionnaire";
-import QuestionTypeCollection, {QuestionType} from "isomorphic-questionnaire/lib/QuestionType"
+// import Questionnaire from "../../../../lib/Questionnaire";
+// import QuestionTypeCollection, {QuestionType} from "../../../../lib/QuestionType"
+
+import {Questionnaire, QuestionTypeCollection, QuestionType} from "../../../../index";
 
 console.log("QuestionType: %o  %o", QuestionTypeCollection, QuestionType);
 console.log("QUESTIONNAIRE: %o", Questionnaire);
