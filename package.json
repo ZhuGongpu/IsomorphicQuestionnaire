@@ -73,6 +73,7 @@
     "antd": "^1.11.0",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
-    "react-pure-render": "^1.0.2"
+    "react-pure-render": "^1.0.2",
+    "relocate-lazy-load": "^0.0.2"
   }
 }

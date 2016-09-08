@@ -6,7 +6,7 @@ import thunk from "redux-thunk";
 import createLogger from "redux-logger";
 import {fromJS} from 'immutable';
 import {routerMiddleware} from 'react-router-redux';
-import createReducer from './reducers';
+import {createReducer} from 'relocate-lazy-load';
 
 const devtools = window.devToolsExtension || (() => noop => noop);
 
@@ -21,14 +21,9 @@ export default function configStore(initialState = {}, history) {
     // Make reducers hot reloadable, see http://mxs.is/googmo
     /* istanbul ignore next */
     if (module.hot) {
-        System.import ('./reducers').then((reducerModule) => {
-            const createReducers = reducerModule.default;
-            const nextReducers = createReducers(store.asyncReducers);
-
-            // console.log("store: store: %o nextReducers: %o", store, nextReducers);
-
-            store.replaceReducer(nextReducers);
-        });
+        const nextReducers = createReducer(store.asyncReducers);
+        // console.log("store: store: %o nextReducers: %o", store, nextReducers);
+        store.replaceReducer(nextReducers);
     }
     // Initialize it with no other reducers
     store.asyncReducers = {};

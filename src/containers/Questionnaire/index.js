@@ -3,7 +3,7 @@
  */
 import React, {PropTypes} from "react";
 import {connect} from "react-redux";
-import relocate from "../../higherOrderComponents/Relocate";
+import {relocate} from "relocate-lazy-load";
 import {createSelector} from "reselect";
 import Question from "../../components/Question";
 import "antd/dist/antd.less";
@@ -41,7 +41,6 @@ const mapStateToProps = (state, props) => {
         (answers)=> ({answers})
     )
 };
-
 
 function mapDispatchToProps(dispatch, props) {
     const {actionCreators} = props;

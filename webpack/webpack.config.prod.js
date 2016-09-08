@@ -20,6 +20,11 @@ module.exports = require('./webpack.config.base.js')({
         'react': 'umd react',
         'react-dom': 'umd react-dom',
         'antd': 'umd antd',
+        "react-redux": "umd react-redux",
+        "relocate-lazy-load": "umd relocate-lazy-load",
+        "reselect": "umd reselect",
+        "redux": "umd redux",
+        "immutable": "umd immutable"
     }
 })
 ;

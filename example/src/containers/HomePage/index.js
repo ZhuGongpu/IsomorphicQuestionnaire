@@ -3,14 +3,8 @@
  */
 import React from "react";
 import styles from "./index.scss";
-// import {QuestionType} from "../../enums/QuestionType";
-// import Questionnaire from "../../../../lib/Questionnaire";
-// import QuestionTypeCollection, {QuestionType} from "../../../../lib/QuestionType"
 
 import {Questionnaire, QuestionTypeCollection, QuestionType} from "../../../../index";
-
-console.log("QuestionType: %o  %o", QuestionTypeCollection, QuestionType);
-console.log("QUESTIONNAIRE: %o", Questionnaire);
 
 const questions = [{
     type: QuestionType.SingleChoice.value,
@@ -89,13 +83,9 @@ const questions = [{
     labels: ["评分项1", "评分项2", "评分项3", "评分项4"]
 }];
 
-function onAnswerChange(questionID, answer) {
-    console.log("onAnswerChange: %o %o", questionID, answer);
-}
-
 export default() => (<div>
     <div className={styles.introduction}>This is the HomePage</div>
     <div>
-        <Questionnaire questions={questions} onAnswerChange={onAnswerChange} answers={[]}/>
+        <Questionnaire domain="Questionnaire" actionPrefix="DemoQuestionnaire" questions={questions}/>
     </div>
 </div>)

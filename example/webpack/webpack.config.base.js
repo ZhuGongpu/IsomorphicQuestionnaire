@@ -60,7 +60,7 @@ module.exports = (options) => ({
             loader: 'html-loader',
         }, {
             test: /\.js(x?)$/,
-            exclude: /node_modules/,
+            exclude: /node_modules|lib|generator/,
             loader: "babel"
         }, {
             test: /\.(scss|sass)$/,
