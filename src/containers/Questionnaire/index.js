@@ -30,7 +30,7 @@ class Questionnaire extends React.Component {
 
 Questionnaire.propTypes = {
     questions: PropTypes.array.isRequired,
-    answers: PropTypes.array.isRequired,
+    answers: PropTypes.object,
     onAnswerChange: PropTypes.func.isRequired
 };
 
