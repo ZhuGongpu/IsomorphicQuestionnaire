@@ -1,6 +1,6 @@
 {
   "name": "isomorphic-questionnaire",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "react isomorphic questionnaire",
   "main": "index.js",
   "scripts": {
