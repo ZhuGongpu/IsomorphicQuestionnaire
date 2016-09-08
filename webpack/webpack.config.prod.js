@@ -1,5 +1,4 @@
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
 
 module.exports = require('./webpack.config.base.js')({
@@ -12,13 +11,11 @@ module.exports = require('./webpack.config.base.js')({
         library: 'isomorphic-questionnaire',
         libraryTarget: 'umd',
         filename: "[name].js"
-    }
-    ,
+    },
     scssLoader: 'style-loader!css-loader?localIdentName=[local]__[name]__[hash:base64:5]&modules&importLoaders=1!postcss-loader!sass-loader',
     plugins: [],
     externals: {
         'react': 'umd react',
-        'react-dom': 'umd react-dom',
         'antd': 'umd antd',
         "react-redux": "umd react-redux",
         "relocate-lazy-load": "umd relocate-lazy-load",
@@ -26,5 +23,4 @@ module.exports = require('./webpack.config.base.js')({
         "redux": "umd redux",
         "immutable": "umd immutable"
     }
-})
-;
+});

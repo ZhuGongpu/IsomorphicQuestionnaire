@@ -4,7 +4,7 @@
 import React from "react";
 import styles from "./index.scss";
 
-import {Questionnaire, QuestionTypeCollection, QuestionType} from "../../../../index";
+import {Questionnaire, QuestionTypeCollection, QuestionType} from "isomorphic-questionnaire";
 
 const questions = [{
     type: QuestionType.SingleChoice.value,
@@ -83,9 +83,13 @@ const questions = [{
     labels: ["评分项1", "评分项2", "评分项3", "评分项4"]
 }];
 
+function onAnswerChange(questionID, answer) {
+    console.log(`onAnswerChange: ${questionID}  ${answer}`);
+}
+
 export default() => (<div>
     <div className={styles.introduction}>This is the HomePage</div>
     <div>
-        <Questionnaire domain="Questionnaire" actionPrefix="DemoQuestionnaire" questions={questions}/>
+        <Questionnaire domain="Questionnaire" actionPrefix="DemoQuestionnaire" questions={questions} answers={[]} onAnswerChange={onAnswerChange}/>
     </div>
 </div>)

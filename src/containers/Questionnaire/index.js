@@ -29,7 +29,9 @@ class Questionnaire extends React.Component {
 }
 
 Questionnaire.propTypes = {
-    questions: PropTypes.array.isRequired
+    questions: PropTypes.array.isRequired,
+    answers: PropTypes.array.isRequired,
+    onAnswerChange: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state, props) => {
