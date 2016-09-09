@@ -44,7 +44,6 @@
     "immutable": "^3.8.1",
     "imports-loader": "^0.6.5",
     "isomorphic-fetch": "^2.2.1",
-    "isomorphic-questionnaire": "^0.0.19",
     "json-loader": "^0.5.4",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
@@ -67,12 +66,7 @@
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^2.1.0-beta.20",
-    "webpack-dev-middleware": "^1.6.1",
-    "webpack-hot-middleware": "^2.10.0"
-  },
-  "dependencies": {
-    "antd": "^1.11.0",
-    "isomorphic-questionnaire": "^0.0.19",
+    "isomorphic-questionnaire": "^0.0.26",
     "react": "^15.0.1",
     "react-dom": "^15.0.1",
     "react-pure-render": "^1.0.2",
@@ -82,6 +76,8 @@
     "react-router-scroll": "^0.2.0",
     "redux": "^3.5.2",
     "redux-immutable": "^3.0.6",
-    "relocate-lazy-load": "^0.0.4"
+    "relocate-lazy-load": "^0.0.4",
+    "webpack-dev-middleware": "^1.6.1",
+    "webpack-hot-middleware": "^2.10.0"
   }
 }

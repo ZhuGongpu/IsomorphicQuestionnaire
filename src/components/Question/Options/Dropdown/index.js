@@ -3,8 +3,10 @@
  */
 
 import React, {PropTypes} from "react";
-import {Select} from "antd";
-const Option = Select.Option;
+
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
+
 import styles from  "./index.scss";
 
 
@@ -15,9 +17,9 @@ class Dropdown extends React.Component {
         return 1 + Math.max(... options.map(item => Dropdown.getNestingLevel(item.children)));
     }
 
-    onChange(index, value) {
+    onChange(index, currentSelection) {
         const {currentSelections} = this.props;
-        currentSelections[index] = value;
+        currentSelections[index] = currentSelection.value;
         while (currentSelections.length > index + 1) {
             currentSelections.pop()
         }
@@ -40,11 +42,10 @@ class Dropdown extends React.Component {
             select = [
                 <Select key={index}
                         className={`${styles.select} ${className}`}
+                        options={options.map(option => ({value: option.id, label: option.text}))}
                         value={currentSelections && currentSelections[index]}
-                        placeholder={placeholders && placeholders[index]}
-                        onChange={this.onChange.bind(this, index)}>
-                    {options.map(option => <Option key={option.id} value={option.id}>{option.text}</Option>)}
-                </Select>
+                        placeholder={placeholders && placeholders[index] || ""}
+                        onChange={this.onChange.bind(this, index)}/>
             ]
         }
 
