@@ -41,6 +41,7 @@ class Dropdown extends React.Component {
         if (options) { // if options in current level is not null (maybe not selected), render a select
             select = [
                 <Select key={index}
+                        clearable={false}
                         className={`${styles.select} ${className}`}
                         options={options.map(option => ({value: option.id, label: option.text}))}
                         value={currentSelections && currentSelections[index]}
