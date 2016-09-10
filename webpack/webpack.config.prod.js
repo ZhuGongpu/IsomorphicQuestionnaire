@@ -12,7 +12,7 @@ module.exports = require('./webpack.config.base.js')({
         libraryTarget: 'umd',
         filename: "[name].js"
     },
-    scssLoader: 'style-loader!css-loader?localIdentName=[local]__[name]__[hash:base64:5]&modules&importLoaders=1!postcss-loader!sass-loader',
+    scssLoader: 'style-loader!css-loader?localIdentName=[name]&importLoaders=1!postcss-loader!sass-loader',
     plugins: [],
     externals: {
         'react': 'umd react',
