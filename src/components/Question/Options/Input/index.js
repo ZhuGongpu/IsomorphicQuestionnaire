@@ -3,6 +3,7 @@
  */
 import React, {PropTypes} from "react";
 import {Input as InputBox} from "antd";
+import styles from "./index.scss";
 
 class Input extends React.Component {
 
@@ -13,7 +14,7 @@ class Input extends React.Component {
     render() {
         const {currentValue, placeholder} = this.props;
 
-        return <InputBox style={{maxWidth: 400}}
+        return <InputBox className={styles["input"]}
                          placeholder={placeholder}
                          value={currentValue}
                          onChange={this.onChange.bind(this)}/>

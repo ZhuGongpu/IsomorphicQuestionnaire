@@ -5,6 +5,7 @@
 
 import React, {PropTypes} from "react";
 import {Rate} from "antd";
+import styles from "./index.scss";
 
 class Matrix extends React.Component {
 
@@ -20,9 +21,10 @@ class Matrix extends React.Component {
 
         return <div>
             {
-                labels.map((label, index, array) => <div key={index}>
-                        <span>{label} : </span>
-                        <Rate count={maxStarCount}
+                labels.map((label, index, array) => <div key={index} className="matrix-option">
+                        <span className={styles.label}>{label} : </span>
+                        <Rate className={styles.rate}
+                              count={maxStarCount}
                               value={values[index]}
                               onChange={this.onChange.bind(this, index)}/>
                     </div>

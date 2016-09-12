@@ -1,14 +1,16 @@
 @import "../../../../styles/global";
 
-.radio-item {
+.radio-item,
+.ant-checkbox-wrapper {
   width: 100%;
   margin-top: 5px;
   margin-bottom: 5px;
+  margin-left: 0 !important;
 
   @media (min-width: $small-screen) {
     width: initial;
     margin-bottom: initial;
     margin-top: initial;
+    margin-right: 33px !important;
   }
 }
-
