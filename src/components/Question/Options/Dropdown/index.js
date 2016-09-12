@@ -68,19 +68,11 @@ class Dropdown extends React.Component {
     }
 
     render() {
-        //TODO: update
-        const {currentSelections, placeholders, className, onChange, options} = this.props;
+        const {currentSelections, placeholders, className, options} = this.props;
 
         return <div>
             {this.renderCascader(className, currentSelections, placeholders, options)}
         </div>;
-        // return <Select className={className}
-        //                placeholder={placeholder}
-        //                value={currentSelection}
-        //                allowClear
-        //                onChange={onChange}>
-        //     {options.map(option => <Option value={option.id}>{option.text}</Option>)}
-        // </Select>
     }
 }
 
