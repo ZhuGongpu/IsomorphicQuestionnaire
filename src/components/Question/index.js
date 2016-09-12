@@ -8,8 +8,6 @@ import {QuestionType} from "../../enums/QuestionType";
 import {Selection, Input, Dropdown, Matrix} from "./Options";
 import styles from "./index.scss";
 
-console.log("Question Styles: %o", styles);
-
 class Question extends React.Component {
 
     onAnswerChange(answer) {
