@@ -4,13 +4,12 @@
 import {fromJS} from "immutable";
 import {createSelector} from "reselect";
 
-
 const createQuestionnaireSelector = (domain) => {
-    const selectQuestionnaireDomain = () => state => fromJS(state.get(domain));
+    const selectQuestionnaireDomain = () => state => state.get(domain);
 
     const selectAnswers = () => createSelector(
         selectQuestionnaireDomain(),
-        state => state.get("answers").toJS()
+        state => state.toJS()
     );
 
     return {
