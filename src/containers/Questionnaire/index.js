@@ -6,12 +6,13 @@ import {connect} from "react-redux";
 import {relocate} from "relocate-lazy-load";
 import {createSelector} from "reselect";
 import Question from "../../components/Question";
-import "antd/dist/antd.less";
+// import "antd/dist/antd.less"; //Disable default styles.
 import "./index.scss";
 
 import makeQuestionnaireActionCreator from "./actions";
 import makeQuestionnaireSelector from "./selectors";
 import makeQuestionnaireReducer from "./reducer";
+import "../../styles/index.less";
 
 class Questionnaire extends React.Component {
 

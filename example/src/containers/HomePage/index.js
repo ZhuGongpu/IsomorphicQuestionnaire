@@ -4,6 +4,8 @@
 import React from "react";
 import styles from "./index.scss";
 
+import "isomorphic-questionnaire/lib/index.less";//Enable default styles
+
 import {Questionnaire, QuestionTypeCollection, QuestionType} from "isomorphic-questionnaire";
 
 const questions = [{

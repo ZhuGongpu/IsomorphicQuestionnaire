@@ -36,7 +36,13 @@ module.exports = (options) => ({
             include: /node_modules/,
             loaders: 'style-loader!css-loader',
         }, {
-            test: /\.less$/, loader: "style!css!less"
+            test: /\.less$/,
+            exclude: /node_modules/,
+            loader: "file?name=[name].[ext]"
+        }, {
+            test: /\.less$/,
+            include: /node_modules/,
+            loader: "style!css!less"
         }]
     },
     postcss: () => ([
