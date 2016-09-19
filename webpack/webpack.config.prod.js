@@ -21,6 +21,7 @@ module.exports = require('./webpack.config.base.js')({
         "relocate-lazy-load": "umd relocate-lazy-load",
         "reselect": "umd reselect",
         "redux": "umd redux",
+        "lodash": "umd lodash",
         "immutable": "umd immutable"
     }
 });
