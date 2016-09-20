@@ -92,6 +92,9 @@ function onAnswerChange(questionID, answer) {
 export default() => (<div>
     <div className={styles.introduction}>This is the HomePage</div>
     <div style={{margin: 20}}>
-        <Questionnaire domain="Questionnaire.Answers" actionPrefix="DemoQuestionnaire" questions={questions}/>
+        <Questionnaire domain="Questionnaire.Answers"
+                       actionPrefix="DemoQuestionnaire"
+                       editing
+                       questions={questions}/>
     </div>
 </div>)

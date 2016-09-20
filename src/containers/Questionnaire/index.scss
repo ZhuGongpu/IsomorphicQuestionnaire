@@ -1,8 +1,21 @@
-ul, ol {
-  list-style-type: inherit;
-  //list-style-position: inside;
+.questionnaire {
+  & > ul, & > ol {
+    list-style-type: inherit;
+    //list-style-position: inside;
+    display: inline-block;
+    margin-left: 30px;
+  }
+
+  & > ol {
+    list-style-type: decimal;
+  }
+
+  .ant-menu-item {
+    padding-left: 0;
+  }
+
+  .ant-menu {
+    vertical-align: top;
+  }
 }
 
-ol {
-  list-style-type: decimal;
-}

@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 import {relocate} from "relocate-lazy-load";
 import {createSelector} from "reselect";
 import Question from "../../components/Question";
+import QuestionTypePicker from "../../components/QuestionTypePicker";
 // import "antd/dist/antd.less"; //Disable default styles.
 import "./index.scss";
 
@@ -17,21 +18,25 @@ import "../../styles/index.less";
 class Questionnaire extends React.Component {
 
     render() {
-        const {questions, answers, onAnswerChange} = this.props;
+        const {questions, editing, answers, onAnswerChange} = this.props;
         //TODO: handle NEXT
-        return (<ol>
-            {questions.map(question => <li key={question.id}>
-                <Question data={question}
-                          onAnswerChange={onAnswerChange}
-                          answer={answers[question.id]}/>
-            </li>)}
-        </ol>);
+        return (<div className="questionnaire">
+            {editing ? <QuestionTypePicker/> : null}
+            <ol>
+                {questions.map(question => <li key={question.id}>
+                    <Question data={question}
+                              onAnswerChange={onAnswerChange}
+                              answer={answers[question.id]}/>
+                </li>)}
+            </ol>
+        </div>);
     }
 }
 
 Questionnaire.propTypes = {
     questions: PropTypes.array.isRequired,
     answers: PropTypes.object,
+    editing: PropTypes.bool,
     onAnswerChange: PropTypes.func.isRequired
 };
 
