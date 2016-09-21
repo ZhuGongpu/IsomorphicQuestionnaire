@@ -27,7 +27,6 @@ module.exports = (options) => ({
         filename: "[name].bundle.js",
         chunkFilename: "[name].chunk.js",
         publicPath: '/dist/',
-        hash: true
     }, options.output),
     resolve: {
         modules: ['src', 'node_modules'],
@@ -36,9 +35,27 @@ module.exports = (options) => ({
         //     path.resolve('../src/containers'),
         //     path.resolve('../src/components')
         // ],
-        extensions: ['', '.js']
+        extensions: ['.js']
     },
     plugins: options.plugins.concat([
+        new webpack.LoaderOptionsPlugin({
+            options: {
+                sassLoader: {
+                    includePaths: [path.resolve(__dirname, 'src', 'scss')]
+                },
+                context: '/',
+                postcss: () => ([
+                    postcssFocus(), // Add a :focus to every :hover
+                    cssnext({ // Allow future CSS features to be used, also auto-prefixes the CSS...
+                        browsers: ['last 2 versions', 'not ie <= 8'], // ...based on this browser list
+                    }),
+                    postcssReporter({ // Posts messages from plugins to the terminal
+                        clearMessages: true,
+                    }),
+                    postcssPxToRem,
+                ]),
+            }
+        }),
         new webpack.optimize.CommonsChunkPlugin({
             names: ['common', 'vendor'],
             minChunks: 2
@@ -93,18 +110,5 @@ module.exports = (options) => ({
             loader: 'json-loader',
         }]
     },
-    // sassLoader: {
-    //     includePaths: [path.join(__dirname, 'scss')]
-    // },
-    postcss: () => ([
-        postcssFocus(), // Add a :focus to every :hover
-        cssnext({ // Allow future CSS features to be used, also auto-prefixes the CSS...
-            browsers: ['last 2 versions', 'not ie <= 8'], // ...based on this browser list
-        }),
-        postcssReporter({ // Posts messages from plugins to the terminal
-            clearMessages: true,
-        }),
-        postcssPxToRem,
-    ]),
     target: 'web', // Make web variables accessible to webpack, e.g. window
 });
