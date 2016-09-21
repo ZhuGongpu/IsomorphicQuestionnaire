@@ -12,10 +12,23 @@ module.exports = (options) => ({
     output: Object.assign({}, {
         path: path.resolve(process.cwd(), 'lib'),
         // filename: "[name].js",
-        publicPath: '/lib/',
-        hash: true
+        publicPath: '/lib/'
     }, options.output),
     plugins: options.plugins.concat([
+        new webpack.LoaderOptionsPlugin({
+            options: {
+                postcss: () => ([
+                    postcssFocus(), // Add a :focus to every :hover
+                    cssnext({
+                        browsers: ['last 2 versions', 'not ie <= 8'],
+                    }),
+                    postcssReporter({
+                        clearMessages: true,
+                    }),
+                    postcssPxToRem
+                ])
+            }
+        }),
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: JSON.stringify(process.env.NODE_ENV),
@@ -45,16 +58,6 @@ module.exports = (options) => ({
             loader: "style!css!less"
         }]
     },
-    postcss: () => ([
-        postcssFocus(), // Add a :focus to every :hover
-        cssnext({
-            browsers: ['last 2 versions', 'not ie <= 8'],
-        }),
-        postcssReporter({
-            clearMessages: true,
-        }),
-        postcssPxToRem
-    ]),
     externals: options.externals,
-    // target: 'web', // Make web variables accessible to webpack, e.g. window
+    target: 'web', // Make web variables accessible to webpack, e.g. window
 });
