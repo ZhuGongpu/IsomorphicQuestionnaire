@@ -2,7 +2,7 @@
  * Question Type Picker
  * Created by ZhuGongpu on 16/9/20.
  */
-import React from "react";
+import React, {PropTypes} from "react";
 import {Menu} from "antd";
 import "./index.scss";
 import {QuestionType} from "../../enums/QuestionType";
@@ -18,6 +18,7 @@ class QuestionTypePicker extends React.Component {
 
     onClick(e) {
         console.log("QuestionTypePicker: onClick: %o", e.key);
+        this.props.onSelected(e.key)
     }
 
     render() {
@@ -33,5 +34,9 @@ class QuestionTypePicker extends React.Component {
         </div>
     }
 }
+
+QuestionTypePicker.propTypes = {
+    onSelected: PropTypes.func.isRequired
+};
 
 export default QuestionTypePicker;

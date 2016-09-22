@@ -7,7 +7,7 @@ import {fromJS} from "immutable";
 const makeQuestionnaireReducer = (actions) => {
     const {ANSWER_CHANGE} = actions;
 
-    return (state = fromJS({}), action) => {
+    const answers = (state = fromJS({}), action) => {
         switch (action.type) {
             case ANSWER_CHANGE:
                 return state.set(action.question_id, fromJS(action.answer));
@@ -15,6 +15,10 @@ const makeQuestionnaireReducer = (actions) => {
                 return state;
         }
     };
+
+    //TODO: save questions added or edited
+
+    return combineReducers({answers})
 };
 
 export default makeQuestionnaireReducer;
