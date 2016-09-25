@@ -13,8 +13,14 @@ const createQuestionnaireSelector = (domain) => {
         state => state.get("answers")
     );
 
+    const selectModifiedQuestions = () => createSelector(
+        selectQuestionnaireDomain(),
+        state => state.get("modifiedQuestions")
+    );
+
     return {
         selectQuestionnaireDomain,
+        selectModifiedQuestions,
         selectAnswers
     }
 };

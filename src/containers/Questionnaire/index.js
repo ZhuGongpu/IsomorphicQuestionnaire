@@ -17,11 +17,21 @@ import "../../styles/index.less";
 
 class Questionnaire extends React.Component {
 
+    constructor(props) {
+        super(props);
+
+        this.onPickQuestionType = this.onPickQuestionType.bind(this);
+    }
+
+    onPickQuestionType(typeValue) {
+        //TODO: add a question of the specific type
+    }
+
     render() {
         const {questions, editing, answers, onAnswerChange} = this.props;
         //TODO: handle NEXT
         return (<div className="questionnaire">
-            {editing ? <QuestionTypePicker/> : null}
+            {editing ? <QuestionTypePicker onSelected={this.onPickQuestionType}/> : null}
             <ol>
                 {questions.map(question => <li key={question.id}>
                     <Question data={question}
@@ -42,11 +52,18 @@ Questionnaire.propTypes = {
 
 const mapStateToProps = (state, props) => {
     const {selectors} = props;
-    const {selectAnswers} = selectors;
+    const {selectAnswers, selectModifiedQuestions} = selectors;
 
     return createSelector(
+        (state, props) => props,
         selectAnswers(),
-        (answers)=> ({answers})
+        selectModifiedQuestions,
+        (props, answers, modifiedQuestions)=> ({
+            answers,
+            questions: props.questions.map(question =>
+                modifiedQuestions[question.id] ? modifiedQuestions[question.id] : question
+            )
+        })
     )
 };
 

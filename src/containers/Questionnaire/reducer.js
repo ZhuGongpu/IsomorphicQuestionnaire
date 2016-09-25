@@ -1,7 +1,7 @@
 /**
  * Created by ZhuGongpu on 16/8/29.
  */
-import {combineReducers} from 'redux'
+import {combineReducers} from "redux";
 import {fromJS} from "immutable";
 
 const makeQuestionnaireReducer = (actions) => {
@@ -16,16 +16,11 @@ const makeQuestionnaireReducer = (actions) => {
         }
     };
 
-
-    const modifiedQuestions = (state = fromJS([]) /* state is a Immutable.List */, action) => {
+    const modifiedQuestions = (state = fromJS({}) /* state is a Immutable.List */, action) => {
         switch (action.type) {
             case MODIFY_QUESTION:
-                const index = state.findIndex((item, key) => item.id == action.question.id);
-                if(index != -1) { //question already exits
-                    return state.set(index, action.question);
-                } else {
-                    return state.push(action.question);
-                }
+                const question = action.question;
+                return state.set(question.id, question);
             default:
                 return state;
         }
