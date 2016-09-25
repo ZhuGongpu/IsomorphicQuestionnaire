@@ -5,7 +5,7 @@ import {combineReducers} from 'redux'
 import {fromJS} from "immutable";
 
 const makeQuestionnaireReducer = (actions) => {
-    const {ANSWER_CHANGE} = actions;
+    const {ANSWER_CHANGE, MODIFY_QUESTION} = actions;
 
     const answers = (state = fromJS({}), action) => {
         switch (action.type) {
@@ -16,9 +16,22 @@ const makeQuestionnaireReducer = (actions) => {
         }
     };
 
-    //TODO: save questions added or edited
 
-    return combineReducers({answers})
+    const modifiedQuestions = (state = fromJS([]) /* state is a Immutable.List */, action) => {
+        switch (action.type) {
+            case MODIFY_QUESTION:
+                const index = state.findIndex((item, key) => item.id == action.question.id);
+                if(index != -1) { //question already exits
+                    return state.set(index, action.question);
+                } else {
+                    return state.push(action.question);
+                }
+            default:
+                return state;
+        }
+    };
+
+    return combineReducers({answers, modifiedQuestions})
 };
 
 export default makeQuestionnaireReducer;

@@ -10,15 +10,6 @@ const makeQuestionnaireActions = (ACTION_PREFIX) => {
     });
     //endregion
 
-    //region Add Question
-    const ADD_QUESTION = `${ACTION_PREFIX}ADD_QUESTION`;
-
-    function addQuestion(question) {
-        return {type: ADD_QUESTION, question};
-    }
-
-    //endregion
-
     //region Modify Question
     const MODIFY_QUESTION = `${ACTION_PREFIX}MODIFY_QUESTION`;
 
@@ -30,23 +21,11 @@ const makeQuestionnaireActions = (ACTION_PREFIX) => {
     function modifyQuestion(question) {
         return {type: MODIFY_QUESTION, question};
     }
-
     //endregion
 
-    //region Delete Question
-    const DELETE_QUESTION = `${ACTION_PREFIX}DELETE_QUESTION`;
-
-    function deleteQuestion(question) {
-        return {type: DELETE_QUESTION, question};
-    }
-
-    //endregion
-    
     return {
         ANSWER_CHANGE, answerChange,
-        ADD_QUESTION, addQuestion,
-        MODIFY_QUESTION, modifyQuestion,
-        DELETE_QUESTION, deleteQuestion
+        MODIFY_QUESTION, modifyQuestion
     }
 };
 
