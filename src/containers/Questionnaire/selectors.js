@@ -10,12 +10,12 @@ const createQuestionnaireSelector = (domain) => {
 
     const selectAnswers = () => createSelector(
         selectQuestionnaireDomain(),
-        state => state.get("answers")
+        state => state.get("answers").toJS()
     );
 
     const selectModifiedQuestions = () => createSelector(
         selectQuestionnaireDomain(),
-        state => state.get("modifiedQuestions")
+        state => state.get("modifiedQuestions").toJS()
     );
 
     return {
