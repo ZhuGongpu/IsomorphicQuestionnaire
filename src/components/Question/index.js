@@ -20,6 +20,7 @@ class Question extends React.Component {
             case QuestionType.MultipleChoice.value:
                 return <Selection options={question.options}
                                   currentSelection={answer}
+                                  editing={question.editing}
                                   allowMultiSelection={question.type == QuestionType.MultipleChoice.value}
                                   onSelectionChange={this.onAnswerChange.bind(this)}/>;
             case QuestionType.Input.value:

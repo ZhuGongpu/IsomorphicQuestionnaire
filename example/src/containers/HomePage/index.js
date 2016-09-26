@@ -12,6 +12,7 @@ const questions = [{
     type: QuestionType.SingleChoice.value,
     id: "1",
     title: "问题标题1(单选题)",
+    editing: true,
     options: [{
         id: "1",
         text: "选项1"

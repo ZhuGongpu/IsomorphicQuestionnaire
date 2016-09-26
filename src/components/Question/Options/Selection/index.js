@@ -3,7 +3,7 @@
  * Created by ZhuGongpu on 16/8/29.
  */
 import React, {PropTypes} from "react";
-import {Radio, Checkbox} from "antd";
+import {Radio, Checkbox, Input, Tag, Button, Popconfirm} from "antd";
 import styles from "./index.scss";
 const RadioGroup = Radio.Group;
 const CheckboxGroup = Checkbox.Group;
@@ -18,7 +18,21 @@ class Selection extends React.Component {
         this.props.onSelectionChange(e.target.value);
     }
 
-    render() {
+    onInputChange(e) {
+        //TODO:
+        console.log("onInputChange: %o", e.target.value)
+    }
+
+    onOptionAdded(e) {
+        //TODO:
+    }
+
+    onOptionDeleted(index, option) {
+        //TODO:
+    }
+
+    //region render
+    buildSelections() {
         const {currentSelection, options, selectionItemClassName, allowMultiSelection} = this.props;
 
         return allowMultiSelection ?
@@ -35,10 +49,39 @@ class Selection extends React.Component {
                 )}
             </RadioGroup>
     }
+
+    buildEditableSelections() {
+        const {options} = this.props;
+
+        return <div>
+            {
+                options.map((option, index) =>
+                    <Tag key={option.id} closable
+                         afterClose={this.onOptionDeleted.bind(index, option)}>
+                        {option.text}
+                    </Tag>
+                )
+            }
+            {<Popconfirm title={<Input placeholder="基本使用" onChange={this.onInputChange.bind(this)}/>}
+                         onConfirm={this.onOptionAdded.bind(this)}
+                         onCancel={() => console.log("CANCEL")}
+                         arrowPointAtCenter={true}>
+                <Button size="small" type="dashed">+ 添加</Button>
+            </Popconfirm>}
+
+        </div>
+    }
+
+    render() {
+        return this.props.editing ? this.buildEditableSelections() : this.buildSelections();
+    }
+
+    //endregion
 }
 
 Selection.propTypes = {
     currentSelection: PropTypes.any,
+    editing: PropTypes.bool,
     allowMultiSelection: PropTypes.bool,
     options: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.any.isRequired,

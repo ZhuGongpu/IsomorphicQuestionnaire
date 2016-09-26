@@ -35,6 +35,7 @@ class Questionnaire extends React.Component {
             <ol>
                 {questions.map(question => <li key={question.id}>
                     <Question data={question}
+                              editing={question.editing}
                               onAnswerChange={onAnswerChange}
                               answer={answers[question.id]}/>
                 </li>)}
