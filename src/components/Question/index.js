@@ -10,10 +10,19 @@ import styles from "./index.scss";
 
 class Question extends React.Component {
 
+    //region Edit Question
+    onOptionEdited(newOptions) {
+        //TODO:
+
+        console.log("onOptionEdited: %O", newOptions);
+    }
+    //endregion
+
     onAnswerChange(answer) {
         this.props.onAnswerChange(this.props.data.id, answer)
     }
 
+    //region render
     buildOptions(question, answer) {
         switch (question.type) {
             case QuestionType.SingleChoice.value:
@@ -22,7 +31,8 @@ class Question extends React.Component {
                                   currentSelection={answer}
                                   editing={question.editing}
                                   allowMultiSelection={question.type == QuestionType.MultipleChoice.value}
-                                  onSelectionChange={this.onAnswerChange.bind(this)}/>;
+                                  onSelectionChange={this.onAnswerChange.bind(this)}
+                                  onOptionsEdited={this.onOptionEdited.bind(this)}/>;
             case QuestionType.Input.value:
                 return <Input onChange={this.onAnswerChange.bind(this)}
                               placeholder={question.placeholder}
@@ -51,6 +61,8 @@ class Question extends React.Component {
             </div>
         </div>);
     }
+
+    //endregion
 }
 
 Question.propTypes = {
