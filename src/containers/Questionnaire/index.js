@@ -60,7 +60,7 @@ const mapStateToProps = (state, props) => {
     return createSelector(
         (state, props) => props,
         selectAnswers(),
-        selectModifiedQuestions,
+        selectModifiedQuestions(),
         (props, answers, modifiedQuestions)=> ({
             answers,
             questions: props.questions.map(question =>
