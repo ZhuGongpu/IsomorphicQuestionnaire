@@ -15,12 +15,13 @@ const makeQuestionnaireActions = (ACTION_PREFIX) => {
 
     /**
      *
-     * @param question modified question (with origin ID)
+     * @param question modified question (with original ID and `modificationType`)
      * @returns {{type: string, question: *}}
      */
     function modifyQuestion(question) {
         return {type: MODIFY_QUESTION, question};
     }
+
     //endregion
 
     return {

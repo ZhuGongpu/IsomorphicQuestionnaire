@@ -28,7 +28,7 @@ class Questionnaire extends React.Component {
     }
 
     render() {
-        const {questions, editing, answers, onAnswerChange} = this.props;
+        const {questions, editing, answers, onAnswerChange, onQuestionEdited} = this.props;
         //TODO: handle NEXT
         return (<div className="questionnaire">
             {editing ? <QuestionTypePicker onSelected={this.onPickQuestionType}/> : null}
@@ -37,7 +37,8 @@ class Questionnaire extends React.Component {
                     <Question data={question}
                               editing={question.editing}
                               onAnswerChange={onAnswerChange}
-                              answer={answers[question.id]}/>
+                              answer={answers[question.id]}
+                              onEdited={onQuestionEdited.bind(this)}/>
                 </li>)}
             </ol>
         </div>);
@@ -48,7 +49,8 @@ Questionnaire.propTypes = {
     questions: PropTypes.array.isRequired,
     answers: PropTypes.object,
     editing: PropTypes.bool,
-    onAnswerChange: PropTypes.func.isRequired
+    onAnswerChange: PropTypes.func.isRequired,
+    onEdited: PropTypes.func
 };
 
 const mapStateToProps = (state, props) => {
@@ -63,19 +65,18 @@ const mapStateToProps = (state, props) => {
             answers,
             questions: props.questions.map(question =>
                 modifiedQuestions[question.id] ? modifiedQuestions[question.id] : question
-            )
+            ) //merge props.questions and modifiedQuestions
         })
     )
 };
 
 function mapDispatchToProps(dispatch, props) {
     const {actionCreators} = props;
-    const {answerChange} = actionCreators;
+    const {answerChange, modifyQuestion} = actionCreators;
 
-    //TODO: if onAnswerChange is defined in parents, return an empty object.
     return {
-        onAnswerChange: (questionId, answer) =>
-            dispatch(answerChange(questionId, answer))
+        onAnswerChange: (questionId, answer) => dispatch(answerChange(questionId, answer)),//TODO: if onAnswerChange is defined in parents, return an empty object.
+        onQuestionEdited: (question) => dispatch(modifyQuestion(question))
     }
 }
 
