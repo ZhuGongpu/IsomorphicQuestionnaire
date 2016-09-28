@@ -89,6 +89,8 @@ class Question extends React.Component {
     }
 
     buildActions(allowEditing, editing) {
+        const {onEditStart, onEdited, data} = this.props;
+
         return allowEditing ? (
             editing ? <div className="question-actions-container">
                 <Button type="primary"
@@ -101,9 +103,11 @@ class Question extends React.Component {
                 <Button type="primary"
                         size="small"
                         style={{marginRight: 8}}
-                        onClick={this.onQuestionEdited.bind(this)}>编辑</Button>
+                        onClick={onEditStart.bind(this, data)}>编辑</Button>
                 <Button size="small"
-                        onClick={this.onQuestionEditCancel.bind(this)}>删除</Button>
+                        onClick={
+                            onEdited.bind(this, {...data, modificationType: QuestionModificationType.Delete.value})
+                        }>删除</Button>
             </div>
         ) : null;
     }

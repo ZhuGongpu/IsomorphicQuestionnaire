@@ -45,6 +45,7 @@ class Questionnaire extends React.Component {
             editing,
             answers,
             onAnswerChange,
+            onQuestionEditStart,
             onQuestionEdited,
             onQuestionEditCancel
         } = this.props;
@@ -58,6 +59,7 @@ class Questionnaire extends React.Component {
                               editing={question.editing}
                               onAnswerChange={onAnswerChange}
                               answer={answers[question.id]}
+                              onEditStart={onQuestionEditStart.bind(this)}
                               onEdited={onQuestionEdited.bind(this)}
                               onEditCancel={onQuestionEditCancel.bind(this)}/>
                 </li>)}
