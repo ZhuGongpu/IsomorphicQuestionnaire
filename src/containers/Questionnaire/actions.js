@@ -3,6 +3,8 @@
  */
 
 const makeQuestionnaireActions = (ACTION_PREFIX) => {
+    if (!ACTION_PREFIX.endsWith("/"))
+        ACTION_PREFIX += "/";
     //region Answer Change
     const ANSWER_CHANGE = `${ACTION_PREFIX}ANSWER_CHANGE`;
     const answerChange = (question_id, answer) => ({
