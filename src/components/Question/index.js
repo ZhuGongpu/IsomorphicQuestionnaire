@@ -88,8 +88,28 @@ class Question extends React.Component {
         }
     }
 
+    buildActions(allowEditing, editing) {
+        return allowEditing ? (
+            editing ? <div className="question-actions-container">
+                <Button type="primary"
+                        size="small"
+                        style={{marginRight: 8}}
+                        onClick={this.onQuestionEdited.bind(this)}>确认</Button>
+                <Button size="small"
+                        onClick={this.onQuestionEditCancel.bind(this)}>取消</Button>
+            </div> : <div className="question-actions-container">
+                <Button type="primary"
+                        size="small"
+                        style={{marginRight: 8}}
+                        onClick={this.onQuestionEdited.bind(this)}>编辑</Button>
+                <Button size="small"
+                        onClick={this.onQuestionEditCancel.bind(this)}>删除</Button>
+            </div>
+        ) : null;
+    }
+
     render() {
-        const {data, answer, className} = this.props;
+        const {data, answer, className, allowEditing} = this.props;
         const {editing} = data;
         const mergedData = Object.assign({}, data, editing ? this.state : {});
 
@@ -104,16 +124,10 @@ class Question extends React.Component {
             <div className={`${styles["question-options-container"]} question-options-container`}>
                 {this.buildOptions(mergedData, answer)}
             </div>
-            {editing ? <div>
-                <Button type="primary"
-                        size="small"
-                        style={{marginRight: 8}}
-                        onClick={this.onQuestionEdited.bind(this)}>确认</Button>
-                <Button size="small"
-                        onClick={this.onQuestionEditCancel.bind(this)}>取消</Button>
-            </div> : null}
+            {this.buildActions(allowEditing, editing)}
         </div>);
     }
+
     //endregion
 }
 
@@ -122,6 +136,7 @@ Question.propTypes = {
     data: PropTypes.object.isRequired,
     onAnswerChange: PropTypes.func.isRequired,
     answer: PropTypes.any,
+    allowEditing: PropTypes.bool,
     onEditStart: PropTypes.func,
     onEdited: PropTypes.func,
     onEditCancel: PropTypes.func

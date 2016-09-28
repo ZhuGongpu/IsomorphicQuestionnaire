@@ -39,13 +39,22 @@ class Questionnaire extends React.Component {
     }
 
     render() {
-        const {questions, editing, answers, onAnswerChange, onQuestionEdited, onQuestionEditCancel} = this.props;
+        const {
+            questions,
+            allowEditing,
+            editing,
+            answers,
+            onAnswerChange,
+            onQuestionEdited,
+            onQuestionEditCancel
+        } = this.props;
         //TODO: handle NEXT
         return (<div className="questionnaire">
             {editing ? <QuestionTypePicker onSelected={this.onPickQuestionType}/> : null}
             <ol>
                 {questions.map(question => <li key={question.id}>
                     <Question data={question}
+                              allowEditing={allowEditing}
                               editing={question.editing}
                               onAnswerChange={onAnswerChange}
                               answer={answers[question.id]}
@@ -62,6 +71,7 @@ Questionnaire.propTypes = {
     answers: PropTypes.object,
     editing: PropTypes.bool,
     onAnswerChange: PropTypes.func.isRequired,
+    allowEditing: PropTypes.bool,
     onEdited: PropTypes.func
 };
 

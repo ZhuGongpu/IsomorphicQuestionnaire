@@ -95,7 +95,7 @@ export default() => (<div>
     <div style={{margin: 20}}>
         <Questionnaire domain="Questionnaire.Answers"
                        actionPrefix="DemoQuestionnaire"
-                       editing
+                       allowEditing={true}
                        questions={questions}/>
     </div>
 </div>)
