@@ -47,8 +47,9 @@ class Question extends React.Component {
 
     onQuestionEditCancel() {
         const {onEditCancel, data} = this.props;
+
         if (onEditCancel) {
-            onEditCancel(data)
+            onEditCancel(data);
         }
     }
 
