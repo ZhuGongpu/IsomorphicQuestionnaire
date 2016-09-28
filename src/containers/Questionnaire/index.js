@@ -28,7 +28,7 @@ class Questionnaire extends React.Component {
     }
 
     render() {
-        const {questions, editing, answers, onAnswerChange, onQuestionEdited} = this.props;
+        const {questions, editing, answers, onAnswerChange, onQuestionEdited, onQuestionEditCancel} = this.props;
         //TODO: handle NEXT
         return (<div className="questionnaire">
             {editing ? <QuestionTypePicker onSelected={this.onPickQuestionType}/> : null}
@@ -38,7 +38,8 @@ class Questionnaire extends React.Component {
                               editing={question.editing}
                               onAnswerChange={onAnswerChange}
                               answer={answers[question.id]}
-                              onEdited={onQuestionEdited.bind(this)}/>
+                              onEdited={onQuestionEdited.bind(this)}
+                              onCancelEdit={onQuestionEditCancel.bind(this)}/>
                 </li>)}
             </ol>
         </div>);
@@ -72,11 +73,13 @@ const mapStateToProps = (state, props) => {
 
 function mapDispatchToProps(dispatch, props) {
     const {actionCreators} = props;
-    const {answerChange, modifyQuestion} = actionCreators;
+    const {answerChange, modifyQuestion, modifyQuestionStart, modifyQuestionCancel} = actionCreators;
 
     return {
         onAnswerChange: (questionId, answer) => dispatch(answerChange(questionId, answer)),//TODO: if onAnswerChange is defined in parents, return an empty object.
-        onQuestionEdited: (question) => dispatch(modifyQuestion(question))
+        onQuestionEditStart: (question) => dispatch(modifyQuestionStart(question)),//todo
+        onQuestionEdited: (question) => dispatch(modifyQuestion(question)),
+        onQuestionEditCancel: (question) => dispatch(modifyQuestionCancel(question))//todo
     }
 }
 

@@ -5,7 +5,12 @@ import {combineReducers} from "redux";
 import {fromJS} from "immutable";
 
 const makeQuestionnaireReducer = (actions) => {
-    const {ANSWER_CHANGE, MODIFY_QUESTION} = actions;
+    const {
+        ANSWER_CHANGE,
+        MODIFY_QUESTION_START,
+        MODIFY_QUESTION_DONE,
+        MODIFY_QUESTION_CANCEL
+    } = actions;
 
     const answers = (state = fromJS({}), action) => {
         switch (action.type) {
@@ -17,10 +22,13 @@ const makeQuestionnaireReducer = (actions) => {
     };
 
     const modifiedQuestions = (state = fromJS({}) /* state is a Immutable.List */, action) => {
+        const question = action.question;
         switch (action.type) {
-            case MODIFY_QUESTION:
-                const question = action.question;
-                return state.set(question.id, question);
+            case MODIFY_QUESTION_START:
+                return state.set(question.id, {...question, editing: true});
+            case MODIFY_QUESTION_DONE:
+            case MODIFY_QUESTION_CANCEL:
+                return state.set(question.id, {...question, editing: false});
             default:
                 return state;
         }

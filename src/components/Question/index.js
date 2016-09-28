@@ -4,6 +4,8 @@
  */
 
 import React, {PropTypes} from "react";
+import {connect} from "react-redux";
+import {Button} from "antd";
 import {QuestionType} from "../../enums/QuestionType";
 import {Selection, Input, Dropdown, Matrix} from "./Options";
 import {QuestionModificationType} from "../../enums/QuestionModificationType";
@@ -11,23 +13,43 @@ import styles from "./index.scss";
 
 class Question extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.state = {}
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({...nextProps.data}); //reset state.
+    }
+
     //region Edit Question
     onOptionEdited(newOptions) {
-        const {data} = this.props;
-        data.options = newOptions;
-        this.onQuestionEdited(QuestionModificationType.Update.value, data)
+        this.setState({
+            options: newOptions
+        });
     }
 
     onTitleEdited(newTitle) {
-        const {data} = this.props;
-        data.title = newTitle;
-        this.onQuestionEdited(QuestionModificationType.Update.value, data)
+        this.setState({
+            title: newTitle
+        });
     }
 
-    onQuestionEdited(modificationType, newQuestion) {
-        const {onEdited} = this.props;
+    onQuestionEdited() {
+        const {onEdited, data} = this.props;
         if (onEdited)
-            onEdited({...newQuestion, modificationType})//add `modificationType` to the edited question
+            onEdited({
+                ...data,
+                ...this.state,
+                modificationType: QuestionModificationType.Update.value
+            });//merge the original question and the modified one
+    }
+
+    onQuestionEditCancel() {
+        const {onEditCancel, data} = this.props;
+        if (onEditCancel) {
+            onEditCancel(data)
+        }
     }
 
     //endregion
@@ -67,21 +89,30 @@ class Question extends React.Component {
 
     render() {
         const {data, answer, className} = this.props;
+        const {editing} = data;
+        const mergedData = Object.assign({}, data, editing ? this.state : {});
 
         return (<div className={`${styles["question"]} ${className}`}>
             <div className={`${styles["question-prompt"]} question-prompt`}>
-                {data.editing ?
+                {editing ?
                     <Input placeholder="问题标题"
-                           currentValue={data.title}
+                           currentValue={mergedData.title}
                            onChange={this.onTitleEdited.bind(this)}/>
-                    : data.title}
+                    : mergedData.title}
             </div>
             <div className={`${styles["question-options-container"]} question-options-container`}>
-                {this.buildOptions(data, answer)}
+                {this.buildOptions(mergedData, answer)}
             </div>
+            {editing ? <div>
+                <Button type="primary"
+                        size="small"
+                        style={{marginRight: 8}}
+                        onClick={this.onQuestionEdited.bind(this)}>确认</Button>
+                <Button size="small"
+                        onClick={this.onQuestionEditCancel.bind(this)}>取消</Button>
+            </div> : null}
         </div>);
     }
-
     //endregion
 }
 
@@ -90,7 +121,9 @@ Question.propTypes = {
     data: PropTypes.object.isRequired,
     onAnswerChange: PropTypes.func.isRequired,
     answer: PropTypes.any,
-    onEdited: PropTypes.func
+    onEditStart: PropTypes.func,
+    onEdited: PropTypes.func,
+    onEditCancel: PropTypes.func
 };
 
 Question.defaultProps = {
