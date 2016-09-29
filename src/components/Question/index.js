@@ -71,9 +71,11 @@ class Question extends React.Component {
 
     //endregion
 
+    //region Answer Change
     onAnswerChange(answer) {
         this.props.onAnswerChange(this.props.data.id, answer)
     }
+    //endregion
 
     //region render
     buildOptions(question, answer) {
