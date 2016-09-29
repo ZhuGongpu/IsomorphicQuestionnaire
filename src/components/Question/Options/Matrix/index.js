@@ -60,7 +60,7 @@ class Matrix extends React.Component {
         return <div>
             {
                 labels.map((label, index) =>
-                    <Tag key={index} closable
+                    <Tag key={label + index} closable
                          afterClose={this.onLabelDeleted.bind(this, index)}>
                         {label}
                     </Tag>

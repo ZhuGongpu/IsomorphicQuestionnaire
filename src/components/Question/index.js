@@ -41,7 +41,6 @@ class Question extends React.Component {
     //region Options
     onOptionAdded(option) {
         const options = this.state.options || this.props.data.options;
-        console.log("onOptionAdded: %o  %o  %O  %O", option, this.state, this.props, options);
         if (!option.id) {
             option.id = generateOptionID(options);
         }
