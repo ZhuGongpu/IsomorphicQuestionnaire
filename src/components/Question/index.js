@@ -10,6 +10,11 @@ import {QuestionType} from "../../enums/QuestionType";
 import {Selection, Input, Dropdown, Matrix} from "./Options";
 import {QuestionModificationType} from "../../enums/QuestionModificationType";
 import styles from "./index.scss";
+import {fromJS} from "immutable";
+
+function generateOptionID(options) {
+    return Math.max(...options.map(option => option.id)) + 1
+}
 
 class Question extends React.Component {
 
@@ -34,10 +39,45 @@ class Question extends React.Component {
     //endregion
 
     //region Options
+    //todo: remove
     onOptionEdited(newOptions) {
         this.setState({options: newOptions});
     }
 
+    onOptionAdded(option) {
+        const options = this.state.options || this.props.options;
+        if (!option.id) {
+            option.id = generateOptionID(options);
+        }
+
+        this.setState({options: fromJS(options).push(option).toJS()});
+    }
+
+    onOptionDeleted(index) {
+        const options = this.state.options || this.props.options;
+        this.setState({options: fromJS(options).delete(index).toJS()})
+    }
+
+    onOptionInputChange(input) {
+        this.setState({input});
+    }
+
+    //endregion
+
+    //region Label
+    onLabelAdded(label) {
+        const labels = this.state.labels|| this.props.labels;
+        this.setState({labels: fromJS(labels).push(label).toJS()})
+    }
+
+    onLabelDeleted(index) {
+        const labels = this.state.labels|| this.props.labels;
+        this.setState({labels: fromJS(labels).delete(index).toJS()})
+    }
+
+    onLabelInputChange(input) {
+        this.setState({input})
+    }
     //endregion
 
     //region Input
@@ -75,6 +115,7 @@ class Question extends React.Component {
     onAnswerChange(answer) {
         this.props.onAnswerChange(this.props.data.id, answer)
     }
+
     //endregion
 
     //region render
@@ -104,6 +145,10 @@ class Question extends React.Component {
                 return <Matrix labels={question.labels}
                                values={answer}
                                editing={question.editing}
+                               input={this.state.input}
+                               onLabelAdded={this.onLabelAdded.bind(this)}
+                               onLabelDeleted={this.onLabelDeleted.bind(this)}
+                               onLabelInputChange={this.onLabelInputChange.bind(this)}
                                onChange={this.onAnswerChange.bind(this)}/>;
             default:
                 return null;
