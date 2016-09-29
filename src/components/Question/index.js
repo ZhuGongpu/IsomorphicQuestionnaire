@@ -23,26 +23,42 @@ class Question extends React.Component {
     }
 
     //region Edit Question
-    onOptionEdited(newOptions) {
-        this.setState({
-            options: newOptions
-        });
-    }
 
+    //region Title
     onTitleEdited(newTitle) {
         this.setState({
             title: newTitle
         });
     }
 
+    //endregion
+
+    //region Options
+    onOptionEdited(newOptions) {
+        this.setState({options: newOptions});
+    }
+
+    //endregion
+
+    //region Input
+    onInputPlaceholderEdited(newPlaceholder) {
+        this.setState({placeholder: newPlaceholder});
+        console.log("Question onInputPlaceholderEdited: %o", newPlaceholder);
+    }
+
+    //endregion
+
     onQuestionEdited() {
         const {onEdited, data} = this.props;
-        if (onEdited)
-            onEdited({
+        if (onEdited) {
+            const question = {
                 ...data,
                 ...this.state,
                 modificationType: QuestionModificationType.Update.value
-            });//merge the original question and the modified one
+            };
+            onEdited(question);//merge the original question and the modified one
+            console.log("Question onQuestionEdited: %O  %o", question, this.state);
+        }
     }
 
     onQuestionEditCancel() {
@@ -73,15 +89,19 @@ class Question extends React.Component {
             case QuestionType.Input.value:
                 return <Input onChange={this.onAnswerChange.bind(this)}
                               placeholder={question.placeholder}
+                              editing={question.editing}
+                              onPlaceholderEdited={this.onInputPlaceholderEdited.bind(this)}
                               currentValue={answer}/>;
             case QuestionType.Dropdown.value:
                 return <Dropdown placeholders={question.placeholders}
                                  currentSelections={answer}
                                  onChange={this.onAnswerChange.bind(this)}
+                                 editing={question.editing}
                                  options={question.options}/>;
             case QuestionType.Matrix.value:
                 return <Matrix labels={question.labels}
                                values={answer}
+                               editing={question.editing}
                                onChange={this.onAnswerChange.bind(this)}/>;
             default:
                 return null;
