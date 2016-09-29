@@ -9,19 +9,7 @@ import styles from "./index.scss";
 const RadioGroup = Radio.Group;
 const CheckboxGroup = Checkbox.Group;
 
-function generateOptionID(options) {
-    return Math.max(...options.map(option => option.id)) + 1
-}
-
 class Selection extends React.Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            input: ""
-        }
-    }
 
     onCheckChange(checkedValues) {
         this.props.onSelectionChange(checkedValues);
@@ -31,26 +19,30 @@ class Selection extends React.Component {
         this.props.onSelectionChange(e.target.value);
     }
 
+    //region Edit
     onInputChange(e) {
-        this.setState({input: e.target.value})
+        const {onOptionInputChange} = this.props;
+        if (onOptionInputChange) {
+            onOptionInputChange(e.target.value)
+        }
     }
 
     onOptionAdded() {
-        const options = this.props.options;
-        const {input} = this.state;
-
-        const id = generateOptionID(options);
-        this.props.onOptionsEdited(fromJS(options).push({id, text: input}).toJS());
+        const {input, onOptionAdded} = this.props;
+        if (onOptionAdded)
+            onOptionAdded({text: input});//id is generated outside
     }
 
     onOptionDeleted(index) {
-        const options = this.props.options;
-        this.props.onOptionsEdited(fromJS(options).delete(index).toJS());
+        const {onOptionDeleted} = this.props;
+        if (onOptionDeleted)
+            onOptionDeleted(index);
     }
 
+    //endregion
+
     //region render
-    buildSelections() {
-        const {currentSelection, options, selectionItemClassName, allowMultiSelection} = this.props;
+    buildSelections(currentSelection, options, selectionItemClassName, allowMultiSelection) {
 
         return allowMultiSelection ?
             <CheckboxGroup options={options.map(option => ({label: option.text, value: option.id}))}
@@ -67,10 +59,7 @@ class Selection extends React.Component {
             </RadioGroup>
     }
 
-    buildEditableSelections() {
-        const {options} = this.props;
-        const {input} = this.state;
-
+    buildEditableSelections(options, input) {
         return <div>
             {
                 options.map((option, index) =>
@@ -81,17 +70,18 @@ class Selection extends React.Component {
                 )
             }
             {<Popconfirm
-                title={<Input placeholder="基本使用" currentValue={input} onChange={this.onInputChange.bind(this)}/>}
+                title={<Input placeholder="输入选项" currentValue={input} onChange={this.onInputChange.bind(this)}/>}
                 onConfirm={this.onOptionAdded.bind(this)}
                 arrowPointAtCenter={true}>
                 <Button size="small" type="dashed">+ 添加</Button>
             </Popconfirm>}
-
         </div>
     }
 
     render() {
-        return this.props.editing ? this.buildEditableSelections() : this.buildSelections();
+        const {editing, currentSelection, options, input, selectionItemClassName, allowMultiSelection} = this.props;
+        return editing ? this.buildEditableSelections(options, input) :
+            this.buildSelections(currentSelection, options, selectionItemClassName, allowMultiSelection);
     }
 
     //endregion
@@ -107,7 +97,9 @@ Selection.propTypes = {
     })).isRequired,
     selectionItemClassName: PropTypes.string,
     onSelectionChange: PropTypes.func.isRequired,
-    onOptionsEdited: PropTypes.func // parameter is newOptions
+    onOptionAdded: PropTypes.func,
+    onOptionDeleted: PropTypes.func,
+    onOptionInputChange: PropTypes.func
 };
 
 export default Selection;

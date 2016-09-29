@@ -39,13 +39,9 @@ class Question extends React.Component {
     //endregion
 
     //region Options
-    //todo: remove
-    onOptionEdited(newOptions) {
-        this.setState({options: newOptions});
-    }
-
     onOptionAdded(option) {
-        const options = this.state.options || this.props.options;
+        const options = this.state.options || this.props.data.options;
+        console.log("onOptionAdded: %o  %o  %O  %O", option, this.state, this.props, options);
         if (!option.id) {
             option.id = generateOptionID(options);
         }
@@ -54,7 +50,7 @@ class Question extends React.Component {
     }
 
     onOptionDeleted(index) {
-        const options = this.state.options || this.props.options;
+        const options = this.state.options || this.props.data.options;
         this.setState({options: fromJS(options).delete(index).toJS()})
     }
 
@@ -66,18 +62,19 @@ class Question extends React.Component {
 
     //region Label
     onLabelAdded(label) {
-        const labels = this.state.labels|| this.props.labels;
+        const labels = this.state.labels || this.props.data.labels;
         this.setState({labels: fromJS(labels).push(label).toJS()})
     }
 
     onLabelDeleted(index) {
-        const labels = this.state.labels|| this.props.labels;
+        const labels = this.state.labels || this.props.data.labels;
         this.setState({labels: fromJS(labels).delete(index).toJS()})
     }
 
     onLabelInputChange(input) {
         this.setState({input})
     }
+
     //endregion
 
     //region Input
@@ -125,10 +122,13 @@ class Question extends React.Component {
             case QuestionType.MultipleChoice.value:
                 return <Selection options={question.options}
                                   currentSelection={answer}
+                                  input={this.state.input}
                                   editing={question.editing}
                                   allowMultiSelection={question.type == QuestionType.MultipleChoice.value}
                                   onSelectionChange={this.onAnswerChange.bind(this)}
-                                  onOptionsEdited={this.onOptionEdited.bind(this)}/>;
+                                  onOptionAdded={this.onOptionAdded.bind(this)}
+                                  onOptionDeleted={this.onOptionDeleted.bind(this)}
+                                  onOptionInputChange={this.onOptionInputChange.bind(this)}/>;
             case QuestionType.Input.value:
                 return <Input onChange={this.onAnswerChange.bind(this)}
                               placeholder={question.placeholder}
