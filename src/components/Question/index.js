@@ -12,7 +12,7 @@ import {QuestionModificationType} from "../../enums/QuestionModificationType";
 import styles from "./index.scss";
 import {fromJS} from "immutable";
 
-function generateOptionID(options) {
+function generateOptionID(options = [{id: 0}]) {
     return Math.max(...options.map(option => option.id)) + 1
 }
 

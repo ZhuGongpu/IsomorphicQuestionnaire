@@ -102,4 +102,8 @@ Selection.propTypes = {
     onOptionInputChange: PropTypes.func
 };
 
+Selection.defaultProps = {
+    options: []
+};
+
 export default Selection;
