@@ -6,6 +6,7 @@ import {connect} from "react-redux";
 import {relocate} from "relocate-lazy-load";
 import {createSelector} from "reselect";
 import Question from "../../components/Question";
+import {QuestionType} from "../../enums/QuestionType";
 import QuestionTypePicker from "../../components/QuestionTypePicker";
 import {QuestionModificationType}  from "../../enums/QuestionModificationType";
 // import "antd/dist/antd.less"; //Disable default styles.
@@ -35,6 +36,24 @@ class Questionnaire extends React.Component {
             type: typeValue,
             modificationType: QuestionModificationType.Add.value
         };
+
+        //Initialize
+        switch (typeValue) {
+            case QuestionType.Input.value:
+                break;
+            case QuestionType.Dropdown.value:
+                question.placeholders = [];
+            case QuestionType.SingleChoice.value:
+            case QuestionType.MultipleChoice.value:
+                question.options = [];
+                break;
+            case QuestionType.Matrix.value:
+                question.labels = [];
+                break;
+            default:
+                break;
+        }
+
         this.props.onQuestionEditStart(question);
     }
 
