@@ -20,7 +20,7 @@ import makeQuestionnaireReducer from "./reducer";
 import "../../styles/index.less";
 
 function generateQuestionID(questions) {
-    return Math.max(...questions.map(question => question.id)) + 1;
+    return Math.max(-1, ...questions.map(question => question.id)) + 1;
 }
 
 class Questionnaire extends React.Component {
