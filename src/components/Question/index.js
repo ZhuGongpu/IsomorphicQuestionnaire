@@ -87,11 +87,12 @@ class Question extends React.Component {
     onQuestionEdited() {
         const {onEdited, data} = this.props;
         if (onEdited) {
-            const question = {
+            let question = {
                 ...data,
                 ...this.state,
-                modificationType: QuestionModificationType.Update.value
             };
+            question.modificationType = question.modificationType || QuestionModificationType.Update.value;
+
             onEdited(question);//merge the original question and the modified one
             console.log("Question onQuestionEdited: %O  %o", question, this.state);
         }
