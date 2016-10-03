@@ -12,8 +12,8 @@ import {QuestionModificationType} from "../../enums/QuestionModificationType";
 import styles from "./index.scss";
 import {fromJS} from "immutable";
 
-function generateOptionID(options = [{id: 0}]) {
-    return Math.max(...options.map(option => option.id)) + 1
+function generateOptionID(options) {
+    return Math.max(-1, ...options.map(option => option.id)) + 1
 }
 
 class Question extends React.Component {
