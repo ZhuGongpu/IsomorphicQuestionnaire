@@ -45,7 +45,7 @@ class Question extends React.Component {
             option.id = generateOptionID(options);
         }
 
-        this.setState({options: fromJS(options).push(option).toJS()});
+        this.setState({options: fromJS(options).push(option).toJS(), input: null});
     }
 
     onOptionDeleted(index) {
@@ -62,7 +62,7 @@ class Question extends React.Component {
     //region Label
     onLabelAdded(label) {
         const labels = this.state.labels || this.props.data.labels;
-        this.setState({labels: fromJS(labels).push(label).toJS()})
+        this.setState({labels: fromJS(labels).push(label).toJS(), input: null})
     }
 
     onLabelDeleted(index) {
@@ -79,7 +79,6 @@ class Question extends React.Component {
     //region Input
     onInputPlaceholderEdited(newPlaceholder) {
         this.setState({placeholder: newPlaceholder});
-        console.log("Question onInputPlaceholderEdited: %o", newPlaceholder);
     }
 
     //endregion
@@ -94,13 +93,11 @@ class Question extends React.Component {
             question.modificationType = question.modificationType || QuestionModificationType.Update.value;
 
             onEdited(question);//merge the original question and the modified one
-            console.log("Question onQuestionEdited: %O  %o", question, this.state);
         }
     }
 
     onQuestionEditCancel() {
         const {onEditCancel, data} = this.props;
-
         if (onEditCancel) {
             onEditCancel(data);
         }
