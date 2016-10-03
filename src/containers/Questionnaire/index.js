@@ -5,6 +5,8 @@ import React, {PropTypes} from "react";
 import {connect} from "react-redux";
 import {relocate} from "relocate-lazy-load";
 import {createSelector} from "reselect";
+import {Button} from "antd";
+import {fromJS} from "immutable";
 import Question from "../../components/Question";
 import {QuestionType} from "../../enums/QuestionType";
 import QuestionTypePicker from "../../components/QuestionTypePicker";
@@ -57,6 +59,16 @@ class Questionnaire extends React.Component {
         this.props.onQuestionEditStart(question);
     }
 
+    submitEdit() {
+        //remove unnecessary properties
+        const questions = this.props.questions.map(question => {
+            return fromJS(question).delete("modificationType").delete("editing").delete("input").toJS()
+        });
+
+        //todo:
+        console.log("Submit: %o  %O", questions, this.props.questions)
+    }
+
     render() {
         const {
             questions,
@@ -82,6 +94,11 @@ class Questionnaire extends React.Component {
                               onEditCancel={onQuestionEditCancel.bind(this)}/>
                 </li>)}
             </ol>
+            {allowEditing ?
+                <div style={{textAlign: "center", marginTop: 20}}>
+                    <Button type="primary" onClick={this.submitEdit.bind(this)}>提交修改</Button>
+                </div>
+                : null}
         </div>);
     }
 }
