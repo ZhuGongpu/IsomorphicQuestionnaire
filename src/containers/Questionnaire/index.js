@@ -66,7 +66,7 @@ class Questionnaire extends React.Component {
         });
 
         //todo:
-        console.log("Submit: %o  %O", questions, this.props.questions)
+        console.log(JSON.stringify(questions));
     }
 
     render() {
