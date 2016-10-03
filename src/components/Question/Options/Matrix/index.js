@@ -67,7 +67,7 @@ class Matrix extends React.Component {
                 )
             }
             {<Popconfirm
-                title={<Input placeholder="输入评分项" currentValue={input} onChange={this.onInputChange.bind(this)}/>}
+                title={<Input placeholder="输入评分项" value={input} onChange={this.onInputChange.bind(this)}/>}
                 onConfirm={this.onLabelAdded.bind(this)}
                 arrowPointAtCenter={true}>
                 <Button size="small" type="dashed">+ 添加</Button>

@@ -70,7 +70,7 @@ class Selection extends React.Component {
                 )
             }
             {<Popconfirm
-                title={<Input placeholder="输入选项" currentValue={input} onChange={this.onInputChange.bind(this)}/>}
+                title={<Input placeholder="输入选项" value={input} onChange={this.onInputChange.bind(this)}/>}
                 onConfirm={this.onOptionAdded.bind(this)}
                 arrowPointAtCenter={true}>
                 <Button size="small" type="dashed">+ 添加</Button>
