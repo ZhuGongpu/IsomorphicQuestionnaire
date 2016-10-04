@@ -19,7 +19,7 @@ import makeQuestionnaireSelector from "./selectors";
 import makeQuestionnaireReducer from "./reducer";
 import "../../styles/index.less";
 
-function generateQuestionID(questions) {
+function generateQuestionID(...questions) {
     return Math.max(-1, ...questions.map(question => question.id)) + 1;
 }
 
@@ -34,7 +34,7 @@ class Questionnaire extends React.Component {
     onPickQuestionType(typeValue) {
         //add a question of the specific type with a generated id
         const question = {
-            id: generateQuestionID(this.props.questions),
+            id: generateQuestionID(...this.props.originalQuestions, ...this.props.modifiedQuestions),
             type: typeValue,
             modificationType: QuestionModificationType.Add.value
         };
@@ -122,6 +122,9 @@ const mapStateToProps = (state, props) => {
         selectModifiedQuestions(),
         (props, answers, modifiedQuestions)=> ({
             answers,
+            originalQuestions: props.questions,
+            modifiedQuestions: Object.keys(modifiedQuestions)
+                .map(key => modifiedQuestions[key]),
             //merge props.questions and modifiedQuestions
             questions: props.questions.filter(question => // remove deleted questions
                 !modifiedQuestions[question.id] ||
