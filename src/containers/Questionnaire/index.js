@@ -10,14 +10,14 @@ import {fromJS} from "immutable";
 import Question from "../../components/Question";
 import {QuestionType} from "../../enums/QuestionType";
 import QuestionTypePicker from "../../components/QuestionTypePicker";
-import {QuestionModificationType}  from "../../enums/QuestionModificationType";
-// import "antd/dist/antd.less"; //Disable default styles.
+import {QuestionModificationType} from "../../enums/QuestionModificationType";
+import validate from "../../utils/validate";
 import "./index.scss";
-
 import makeQuestionnaireActionCreator from "./actions";
 import makeQuestionnaireSelector from "./selectors";
 import makeQuestionnaireReducer from "./reducer";
 import "../../styles/index.less";
+// import "antd/dist/antd.less"; //Disable default styles.
 
 function generateQuestionID(...questions) {
     return Math.max(-1, ...questions.map(question => question.id)) + 1;
@@ -59,10 +59,28 @@ class Questionnaire extends React.Component {
         this.props.onQuestionEditStart(question);
     }
 
+    /**
+     * Submit Answers
+     */
+    submit() {
+        const {questions, answers} = this.props;
+        //TODO: validate
+
+        const errors = validate(questions, answers);
+
+        if (errors && errors.length > 0) {
+            console.log("validation ERROR");
+            this.props.validationError(errors);
+        } else {
+            console.log("submit");
+            this.props.onSubmit(answers);
+        }
+    }
+
     submitEdit() {
         //remove unnecessary properties
         const questions = this.props.questions.map(question => {
-            return fromJS(question).delete("modificationType").delete("editing").delete("input").toJS()
+            return fromJS(question).delete("modificationType").delete("editing").delete("input").delete("error").toJS()
         });
 
         //todo:
@@ -72,6 +90,7 @@ class Questionnaire extends React.Component {
     render() {
         const {
             questions,
+            onSubmit,
             allowEditing,
             answers,
             onAnswerChange,
@@ -93,12 +112,17 @@ class Questionnaire extends React.Component {
                               onEdited={onQuestionEdited.bind(this)}
                               onEditCancel={onQuestionEditCancel.bind(this)}/>
                 </li>)}
+                {!!onSubmit && !allowEditing ?
+                    <div style={{textAlign: "center", marginTop: 20}}>
+                        <Button type="primary" onClick={this.submit.bind(this)}>提交</Button>
+                    </div>
+                    : null}
+                {allowEditing ?
+                    <div style={{textAlign: "center", marginTop: 20}}>
+                        <Button type="primary" onClick={this.submitEdit.bind(this)}>提交修改</Button>
+                    </div>
+                    : null}
             </ol>
-            {allowEditing ?
-                <div style={{textAlign: "center", marginTop: 20}}>
-                    <Button type="primary" onClick={this.submitEdit.bind(this)}>提交修改</Button>
-                </div>
-                : null}
         </div>);
     }
 }
@@ -107,9 +131,10 @@ Questionnaire.propTypes = {
     questions: PropTypes.array.isRequired,
     answers: PropTypes.object,
     editing: PropTypes.bool,
-    onAnswerChange: PropTypes.func.isRequired,
+    onAnswerChange: PropTypes.func,
     allowEditing: PropTypes.bool,
-    onEdited: PropTypes.func
+    // onEdited: PropTypes.func,
+    onSubmit: PropTypes.func, // show submit button when onSubmit is not null
 };
 
 const mapStateToProps = (state, props) => {
@@ -141,13 +166,14 @@ const mapStateToProps = (state, props) => {
 
 function mapDispatchToProps(dispatch, props) {
     const {actionCreators} = props;
-    const {answerChange, modifyQuestion, modifyQuestionStart, modifyQuestionCancel} = actionCreators;
+    const {answerChange, modifyQuestion, modifyQuestionStart, modifyQuestionCancel, validationError} = actionCreators;
 
     return {
         onAnswerChange: (questionId, answer) => dispatch(answerChange(questionId, answer)),//TODO: if onAnswerChange is defined in parents, return an empty object.
         onQuestionEditStart: (question) => dispatch(modifyQuestionStart(question)),
         onQuestionEdited: (question) => dispatch(modifyQuestion(question)),
-        onQuestionEditCancel: (question) => dispatch(modifyQuestionCancel(question))
+        onQuestionEditCancel: (question) => dispatch(modifyQuestionCancel(question)),
+        validationError: (errors) => dispatch(validationError(errors))
     }
 }
 

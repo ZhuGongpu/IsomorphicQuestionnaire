@@ -35,14 +35,24 @@ const makeQuestionnaireActions = (ACTION_PREFIX) => {
     }
     //endregion
 
+    //region Validation Error
+    const VALIDATION_ERROR = `${ACTION_PREFIX}VALIDATION_ERROR`;
+    function validationError(unansweredQuestions) {
+        return { type: VALIDATION_ERROR, unansweredQuestions };
+    }
+    //endregion
+
     return {
         ANSWER_CHANGE, answerChange,
         MODIFY_QUESTION_START, modifyQuestionStart,
         MODIFY_QUESTION_DONE, modifyQuestion,
-        MODIFY_QUESTION_CANCEL, modifyQuestionCancel
+        MODIFY_QUESTION_CANCEL, modifyQuestionCancel,
+        VALIDATION_ERROR, validationError
     }
 };
 
 export default makeQuestionnaireActions;
+
+
 
 

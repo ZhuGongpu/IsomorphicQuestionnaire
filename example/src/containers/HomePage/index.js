@@ -3,16 +3,14 @@
  */
 import React from "react";
 import styles from "./index.scss";
-
-import "isomorphic-questionnaire/lib/index.less";//Enable default styles
-
-import {Questionnaire, QuestionTypeCollection, QuestionType} from "isomorphic-questionnaire";
+import "isomorphic-questionnaire/lib/index.less";
+import {Questionnaire, QuestionType} from "isomorphic-questionnaire";//Enable default styles
 
 const questions = [{
     type: QuestionType.SingleChoice.value,
     id: "1",
     title: "问题标题1(单选题)",
-    editing: true,
+    editing: false,
     options: [{
         id: "1",
         text: "选项1"
@@ -90,12 +88,17 @@ function onAnswerChange(questionID, answer) {
     console.log(`onAnswerChange: ${questionID}  ${answer}`);
 }
 
+function onSubmit(answers) {
+    console.log("onSubmit: %o", answers)
+}
+
 export default() => (<div>
     <div className={styles.introduction}>This is the HomePage</div>
     <div style={{margin: 20}}>
         <Questionnaire domain="Questionnaire.Answers"
                        actionPrefix="DemoQuestionnaire"
-                       allowEditing={true}
+                       allowEditing={false}
+                       onSubmit={onSubmit}
                        questions={questions}/>
     </div>
 </div>)

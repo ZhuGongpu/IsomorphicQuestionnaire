@@ -1,14 +1,18 @@
 .question {
-
+  margin: 5px;
 }
 
 .question-prompt {
 
 }
 
+.question-prompt-error {
+  color: #f44336;
+}
+
 .question-options-container {
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 15px;
+  margin-bottom: 15px;
 
   > * {
     color: #888

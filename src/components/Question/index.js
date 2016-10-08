@@ -107,6 +107,7 @@ class Question extends React.Component {
 
     //region Answer Change
     onAnswerChange(answer) {
+        //todo: validate
         this.props.onAnswerChange(this.props.data.id, answer)
     }
 
@@ -178,11 +179,11 @@ class Question extends React.Component {
 
     render() {
         const {data, answer, className, allowEditing} = this.props;
-        const {editing} = data;
+        const {editing, error} = data;
         const mergedData = Object.assign({}, data, editing ? this.state : {});
 
         return (<div className={`${styles["question"]} ${className}`}>
-            <div className={`${styles["question-prompt"]} question-prompt`}>
+            <div className={`${styles["question-prompt"]}  ${error ? styles["question-prompt-error"] : ""} question-prompt`}>
                 {editing ?
                     <Input placeholder="问题标题"
                            currentValue={mergedData.title}

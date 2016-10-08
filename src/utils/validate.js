@@ -8,11 +8,11 @@ import {QuestionType} from "../enums/QuestionType";
 /**
  *
  * @param questions [question]
- * @param answers {{questionId: answer}}
- * @return {Array} [questionID}]
+ * @param answers {questionId: answer}
+ * @return {Array} [ unansweredQuestion]
  */
 export default function validate(questions, answers) {
-    const errors = [];
+    const unansweredQuestions = [];
     questions.forEach(question => {
         const questionID = question.id;
         switch (question.type) {
@@ -20,7 +20,7 @@ export default function validate(questions, answers) {
             case QuestionType.SingleChoice.value:
             case QuestionType.Input.value:
                 if (!answers[questionID] || answers[questionID].length == 0) {
-                    errors.push(questionID)
+                    unansweredQuestions.push(question)
                 }
                 break;
             case QuestionType.Dropdown.value:
@@ -30,17 +30,17 @@ export default function validate(questions, answers) {
                         question.options
                     ) //is not a leaf node
                 ) {
-                    errors.push(questionID)
+                    unansweredQuestions.push(question)
                 }
                 break;
             case QuestionType.Matrix.value:
                 if (!answers[questionID] || answers[questionID].length < question.labels.length) {
-                    errors.push(questionID)
+                    unansweredQuestions.push(question)
                 }
                 break;
             default:
                 break;
         }
     });
-    return errors;
+    return unansweredQuestions;
 }
