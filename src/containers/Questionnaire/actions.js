@@ -20,6 +20,7 @@ const makeQuestionnaireActions = (ACTION_PREFIX) => {
     }
 
     const MODIFY_QUESTION_DONE = `${ACTION_PREFIX}MODIFY_QUESTION_DONE`;
+
     /**
      *
      * @param question modified question (with original ID and `modificationType`)
@@ -30,16 +31,20 @@ const makeQuestionnaireActions = (ACTION_PREFIX) => {
     }
 
     const MODIFY_QUESTION_CANCEL = `${ACTION_PREFIX}MODIFY_QUESTION_CANCEL`;
+
     function modifyQuestionCancel(question) {
         return {type: MODIFY_QUESTION_CANCEL, question};
     }
+
     //endregion
 
     //region Validation Error
     const VALIDATION_ERROR = `${ACTION_PREFIX}VALIDATION_ERROR`;
-    function validationError(unansweredQuestions) {
-        return { type: VALIDATION_ERROR, unansweredQuestions };
+
+    function validationError(questionsWithError) {
+        return {type: VALIDATION_ERROR, questionsWithError};
     }
+
     //endregion
 
     return {

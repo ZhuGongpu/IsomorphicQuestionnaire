@@ -59,20 +59,30 @@ class Questionnaire extends React.Component {
         this.props.onQuestionEditStart(question);
     }
 
+    onAnswerChange(questionID, answer) {
+        const {onAnswerChange, questions, validationError} = this.props;
+        onAnswerChange(questionID, answer);
+
+        //validate the question
+        const question = questions.find(question => question.id == questionID);
+        const errors = validate([question], {[questionID]: answer});
+
+        if (errors.length == 0) {  //clear error if exists.(do nothing util submit if no error occurs)
+            delete question.error;
+            validationError([question]);
+        }
+    }
+
     /**
      * Submit Answers
      */
     submit() {
-        const {questions, answers} = this.props;
-        //TODO: validate
-
+        const {questions, answers, validationError} = this.props;
         const errors = validate(questions, answers);
 
         if (errors && errors.length > 0) {
-            console.log("validation ERROR");
-            this.props.validationError(errors);
+            validationError(errors);
         } else {
-            console.log("submit");
             this.props.onSubmit(answers);
         }
     }
@@ -93,7 +103,7 @@ class Questionnaire extends React.Component {
             onSubmit,
             allowEditing,
             answers,
-            onAnswerChange,
+
             onQuestionEditStart,
             onQuestionEdited,
             onQuestionEditCancel
@@ -106,7 +116,7 @@ class Questionnaire extends React.Component {
                     <Question data={question}
                               allowEditing={allowEditing}
                               editing={question.editing}
-                              onAnswerChange={onAnswerChange}
+                              onAnswerChange={this.onAnswerChange.bind(this)}
                               answer={answers[question.id]}
                               onEditStart={onQuestionEditStart.bind(this)}
                               onEdited={onQuestionEdited.bind(this)}

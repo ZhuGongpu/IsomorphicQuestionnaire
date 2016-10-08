@@ -30,11 +30,12 @@ const makeQuestionnaireReducer = (actions) => {
             case MODIFY_QUESTION_DONE:
             case MODIFY_QUESTION_CANCEL:
                 return state.set(question.id, {...question, editing: false});
-            case VALIDATION_ERROR:
-                return action.unansweredQuestions.reduce(
-                    (previousValue, currentValue) => previousValue.set(currentValue.id, {...currentValue, error: true}),
+            case VALIDATION_ERROR: {
+                return action.questionsWithError.reduce(
+                    (previousValue, currentValue) => previousValue.set(currentValue.id, {...currentValue}),
                     state
                 );
+            }
             default:
                 return state;
         }

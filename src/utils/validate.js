@@ -12,7 +12,7 @@ import {QuestionType} from "../enums/QuestionType";
  * @return {Array} [ unansweredQuestion]
  */
 export default function validate(questions, answers) {
-    const unansweredQuestions = [];
+    const questionsWithError = [];
     questions.forEach(question => {
         const questionID = question.id;
         switch (question.type) {
@@ -20,7 +20,7 @@ export default function validate(questions, answers) {
             case QuestionType.SingleChoice.value:
             case QuestionType.Input.value:
                 if (!answers[questionID] || answers[questionID].length == 0) {
-                    unansweredQuestions.push(question)
+                    questionsWithError.push({...question, error: true})
                 }
                 break;
             case QuestionType.Dropdown.value:
@@ -30,17 +30,17 @@ export default function validate(questions, answers) {
                         question.options
                     ) //is not a leaf node
                 ) {
-                    unansweredQuestions.push(question)
+                    questionsWithError.push({...question, error: true})
                 }
                 break;
             case QuestionType.Matrix.value:
                 if (!answers[questionID] || answers[questionID].length < question.labels.length) {
-                    unansweredQuestions.push(question)
+                    questionsWithError.push({...question, error: true})
                 }
                 break;
             default:
                 break;
         }
     });
-    return unansweredQuestions;
+    return questionsWithError;
 }
