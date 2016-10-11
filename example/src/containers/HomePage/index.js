@@ -3,8 +3,9 @@
  */
 import React from "react";
 import styles from "./index.scss";
-import "isomorphic-questionnaire/lib/index.less";
-import {Questionnaire, QuestionType} from "isomorphic-questionnaire";//Enable default styles
+import "isomorphic-questionnaire/lib/index.less";//Enable default styles
+import {Questionnaire, QuestionType} from "isomorphic-questionnaire";
+import "./index.less";// Override theme color.
 
 const questions = [{
     type: QuestionType.SingleChoice.value,
