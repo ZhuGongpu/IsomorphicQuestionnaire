@@ -95,6 +95,7 @@ class Questionnaire extends React.Component {
 
         //todo:
         console.log(JSON.stringify(questions));
+        this.props.onSubmitEdit(questions);
     }
 
     render() {
@@ -103,7 +104,7 @@ class Questionnaire extends React.Component {
             onSubmit,
             allowEditing,
             answers,
-
+            submitting,
             onQuestionEditStart,
             onQuestionEdited,
             onQuestionEditCancel
@@ -124,12 +125,12 @@ class Questionnaire extends React.Component {
                 </li>)}
                 {!!onSubmit && !allowEditing ?
                     <div style={{textAlign: "center", marginTop: 20}}>
-                        <Button type="primary" onClick={this.submit.bind(this)}>提交</Button>
+                        <Button type="primary" onClick={this.submit.bind(this)} loading={submitting}>提交</Button>
                     </div>
                     : null}
                 {allowEditing ?
                     <div style={{textAlign: "center", marginTop: 20}}>
-                        <Button type="primary" onClick={this.submitEdit.bind(this)}>提交修改</Button>
+                        <Button type="primary" onClick={this.submitEdit.bind(this)} loading={submitting}>提交修改</Button>
                     </div>
                     : null}
             </ol>
@@ -145,6 +146,8 @@ Questionnaire.propTypes = {
     allowEditing: PropTypes.bool,
     // onEdited: PropTypes.func,
     onSubmit: PropTypes.func, // show submit button when onSubmit is not null
+    onSubmitEdit: PropTypes.func,
+    submitting: PropTypes.bool
 };
 
 const mapStateToProps = (state, props) => {
