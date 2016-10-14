@@ -141,7 +141,6 @@ class Questionnaire extends React.Component {
 Questionnaire.propTypes = {
     questions: PropTypes.array.isRequired,
     answers: PropTypes.object,
-    editing: PropTypes.bool,
     onAnswerChange: PropTypes.func,
     allowEditing: PropTypes.bool,
     // onEdited: PropTypes.func,
