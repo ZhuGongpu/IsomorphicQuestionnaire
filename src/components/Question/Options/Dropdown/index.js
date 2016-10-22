@@ -3,11 +3,9 @@
  */
 
 import React, {PropTypes} from "react";
-
-import Select from 'react-select';
-import 'react-select/dist/react-select.css';
-
-import styles from  "./index.scss";
+import Select from "react-select";
+import "react-select/dist/react-select.css";
+import styles from "./index.scss";
 
 
 class Dropdown extends React.Component {
@@ -83,11 +81,12 @@ Dropdown.propTypes = {
     placeholders: PropTypes.array.isRequired,
     options: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.string.isRequired,
+        text: PropTypes.string.isRequired,
         children: PropTypes.arrayOf(PropTypes.shape({
             id: PropTypes.any.isRequired,
             text: PropTypes.string.isRequired,
             children: PropTypes.array
-        })).isRequired
+        }))
     })).isRequired
 };
 

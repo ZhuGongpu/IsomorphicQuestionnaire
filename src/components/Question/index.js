@@ -183,7 +183,8 @@ class Question extends React.Component {
         const mergedData = Object.assign({}, data, editing ? this.state : {});
 
         return (<div className={`${styles["question"]} ${className}`}>
-            <div className={`${styles["question-prompt"]}  ${error ? styles["question-prompt-error"] : ""} question-prompt`}>
+            <div
+                className={`${styles["question-prompt"]}  ${error ? styles["question-prompt-error"] : ""} question-prompt`}>
                 {editing ?
                     <Input placeholder="问题标题"
                            currentValue={mergedData.title}
