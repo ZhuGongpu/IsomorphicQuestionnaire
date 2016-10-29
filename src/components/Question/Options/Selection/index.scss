@@ -6,11 +6,11 @@
   margin-top: 5px;
   margin-bottom: 5px;
   margin-left: 0 !important;
+  line-height: 2.5;
 
   @media (min-width: $small-screen) {
-    width: initial;
+    width: 24%;
     margin-bottom: initial;
     margin-top: initial;
-    margin-right: 33px !important;
   }
 }
